@@ -2,10 +2,13 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+app.set('trust proxy', 1); // trust Railway's reverse proxy
 
-// ── HTTPS redirect (Railway proxy sets X-Forwarded-Proto) ────────────────────
+// ── HTTPS redirect ────────────────────────────────────────────────────────────
 app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] === 'http') {
+  const isLocal = (req.hostname === 'localhost' || req.hostname === '127.0.0.1');
+  const isRailwayInternal = (req.hostname || '').endsWith('.railway.app');
+  if (!req.secure && !isLocal && !isRailwayInternal) {
     return res.redirect(301, 'https://' + req.headers.host + req.url);
   }
   next();
