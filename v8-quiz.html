@@ -3,95 +3,235 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V8 — Quiz Interactivo</title>
+<title>¿Por qué tu negocio no vende por Instagram? — Diagnóstico gratis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #f8f7f4; color: #1a1a1a; font-family: 'Inter', sans-serif; min-height: 100vh; }
+body { background: #0f0f0f; color: #f0f0f0; font-family: 'Inter', sans-serif; min-height: 100vh; }
 
-/* Progress bar */
-.progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #7c3aed; z-index: 100; transition: width 0.5s ease; }
-
-/* Container */
-.container { max-width: 580px; margin: 0 auto; padding: 40px 24px 120px; }
-
-/* Header */
-.quiz-header { text-align: center; margin-bottom: 48px; }
-.quiz-header .chip { display: inline-block; background: #ede9fe; color: #7c3aed; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; }
-.quiz-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1.3; }
-.quiz-header p { font-size: 15px; color: #888; margin-top: 8px; }
-
-/* Steps/screens */
-.screen { display: none; animation: fadeIn 0.4s ease; }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Question */
-.question { margin-bottom: 24px; }
-.question .q-num { font-size: 12px; font-weight: 700; color: #7c3aed; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-.question h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.3; }
-
-/* Options */
-.options { display: flex; flex-direction: column; gap: 10px; }
-.option { background: #fff; border: 2px solid #e5e5e0; border-radius: 12px; padding: 18px 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 14px; font-size: 15px; line-height: 1.4; }
-.option:hover { border-color: #7c3aed; background: #faf8ff; }
-.option.selected { border-color: #7c3aed; background: #ede9fe; }
-.option .letter { width: 32px; height: 32px; border-radius: 8px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #888; flex-shrink: 0; transition: all 0.2s; }
-.option.selected .letter { background: #7c3aed; color: #fff; }
-.option .text { flex: 1; }
-
-/* Result card */
-.result-card { background: #fff; border-radius: 16px; padding: 36px 28px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06); margin-bottom: 24px; }
-.score-circle { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-.score-circle::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 4px solid #e5e5e0; }
-.score-circle::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 4px solid #7c3aed; border-bottom-color: transparent; border-left-color: transparent; animation: spin-in 1s ease forwards; }
-@keyframes spin-in { from { transform: rotate(0deg); } to { transform: rotate(270deg); } }
-.score-circle .num { font-size: 36px; font-weight: 800; color: #7c3aed; }
-.score-circle .of { font-size: 12px; color: #aaa; }
-.result-card h2 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
-.result-card .verdict { font-size: 16px; color: #7c3aed; font-weight: 600; margin-bottom: 16px; }
-.result-card p { font-size: 15px; color: #888; line-height: 1.6; }
-
-/* Reveal sections */
-.reveal { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
-.reveal .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7c3aed; margin-bottom: 12px; }
-.reveal h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-.reveal p { font-size: 14px; color: #888; line-height: 1.6; }
-.reveal-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
-.reveal-step { text-align: center; padding: 16px 8px; background: #f8f7f4; border-radius: 8px; }
-.reveal-step .n { font-size: 24px; font-weight: 800; color: #7c3aed; opacity: 0.4; }
-.reveal-step .t { font-size: 13px; font-weight: 600; margin-top: 4px; }
-.reveal-step .d { font-size: 11px; color: #888; margin-top: 2px; }
-
-/* Mentor mini */
-.mentor-mini { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
-.mentor-mini .dot { width: 40px; height: 40px; border-radius: 50%; background: #7c3aed; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; }
-.mentor-mini .info { font-size: 13px; color: #888; line-height: 1.4; }
-.mentor-mini .info strong { color: #333; }
-
-/* CTA */
-.cta-final { background: #7c3aed; color: #fff; border-radius: 16px; padding: 36px 28px; text-align: center; }
-.cta-final h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-.cta-final .when { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
-.cta-final a { display: inline-block; background: #fff; color: #7c3aed; font-weight: 800; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; transition: transform 0.2s; }
-.cta-final a:hover { transform: scale(1.05); }
-.cta-final .fine { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; }
-
-/* Gauge bars */
-.gauge { margin: 16px 0; }
-.gauge-item { margin-bottom: 12px; }
-.gauge-item .gauge-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
-.gauge-item .gauge-label .name { font-weight: 600; }
-.gauge-item .gauge-label .val { color: #7c3aed; font-weight: 700; }
-.gauge-item .bar { height: 8px; background: #f3f4f6; border-radius: 4px; overflow: hidden; }
-.gauge-item .fill { height: 100%; background: #7c3aed; border-radius: 4px; transition: width 1s ease; }
-
-@media (max-width: 768px) {
-  .reveal-steps { grid-template-columns: 1fr; }
+.quiz-header {
+  background: #1a1a1a;
+  border-bottom: 1px solid #222;
+  padding: 20px 24px;
+  text-align: center;
 }
+.quiz-header .logo {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.quiz-header .logo span { color: #c0392b; }
+
+.quiz-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* Intro screen */
+#screen-intro { display: block; }
+.intro-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 20px;
+}
+.intro-h1 {
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+.intro-sub {
+  font-size: 17px;
+  color: #888;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+.intro-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.meta-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+.meta-pill strong { color: #bbb; }
+
+.start-btn {
+  display: block;
+  width: 100%;
+  background: #c0392b;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+.start-btn:hover { background: #a93226; }
+
+/* Quiz screen */
+#screen-quiz { display: none; }
+.progress-bar {
+  height: 4px;
+  background: #222;
+  border-radius: 2px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #c0392b;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.q-counter {
+  font-size: 12px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.q-text {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+}
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option-btn {
+  background: #1a1a1a;
+  border: 1.5px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 18px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.option-btn:hover { border-color: #c0392b; background: #1f0f0f; }
+.option-btn.selected { border-color: #c0392b; background: #2a0d0d; }
+.option-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #222;
+  border: 1.5px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #888;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.option-btn.selected .option-letter { background: #c0392b; border-color: #c0392b; color: #fff; }
+.option-text { font-size: 16px; color: #ccc; line-height: 1.4; }
+.option-btn.selected .option-text { color: #fff; }
+
+.next-btn {
+  display: none;
+  width: 100%;
+  background: #c0392b;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 24px;
+}
+.next-btn:hover { background: #a93226; }
+.next-btn.visible { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+/* Result screen */
+#screen-result { display: none; }
+.result-icon { font-size: 56px; margin-bottom: 16px; }
+.result-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #c0392b; margin-bottom: 12px; }
+.result-h2 { font-size: clamp(22px, 4vw, 34px); font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 20px; line-height: 1.2; }
+.result-diag { font-size: 17px; color: #aaa; line-height: 1.7; margin-bottom: 32px; }
+.result-diag strong { color: #fff; }
+
+.result-items { margin-bottom: 36px; }
+.result-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid #1e1e1e;
+}
+.result-item:last-child { border-bottom: none; }
+.result-icon-sm { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.result-item-text { font-size: 15px; color: #bbb; line-height: 1.5; }
+.result-item-text strong { color: #fff; }
+
+.class-box {
+  background: #c0392b;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.class-box h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.class-box p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+.class-cta {
+  display: block;
+  width: 100%;
+  background: #fff;
+  color: #c0392b;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.class-cta:hover { background: #f0f0f0; }
+
+.restart-btn {
+  background: none;
+  border: none;
+  color: #444;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+@media(max-width:480px) { .intro-meta { flex-direction: column; gap: 12px; } }
 </style>
 <script>function openPopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.add("open");document.body.style.overflow="hidden";}}function closePopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.remove("open");document.body.style.overflow="";}}</script>
 <!-- Meta Pixel Code -->
@@ -109,146 +249,48 @@ fbq('track','PageView');
 </head>
 <body>
 
-<div class="progress-bar" id="progress" style="width: 0%;"></div>
-
-<div class="container">
-
 <div class="quiz-header">
-  <div class="chip">Quiz · 60 segundos</div>
-  <h1>¿Estás listo para vivir de productos digitales con IA?</h1>
-  <p>Respondé 5 preguntas y descubrí tu nivel de preparación.</p>
+  <div class="logo">Practi<span>gram</span></div>
 </div>
 
-<!-- SCREEN 1 -->
-<div class="screen active" id="s1">
-<div class="question">
-  <div class="q-num">Pregunta 1 de 5</div>
-  <h2>¿Alguna vez generaste ingresos por internet?</h2>
-</div>
-<div class="options">
-  <div class="option" onclick="answer(1, this)"><span class="letter">A</span><span class="text">Nunca. No tengo idea de cómo se hace.</span></div>
-  <div class="option" onclick="answer(1, this)"><span class="letter">B</span><span class="text">Intenté pero no me funcionó.</span></div>
-  <div class="option" onclick="answer(1, this)"><span class="letter">C</span><span class="text">Sí, algo básico (venta en redes, freelance, etc).</span></div>
-  <div class="option" onclick="answer(1, this)"><span class="letter">D</span><span class="text">Sí, tengo un negocio digital activo.</span></div>
-</div>
-</div>
+<div class="quiz-wrap">
 
-<!-- SCREEN 2 -->
-<div class="screen" id="s2">
-<div class="question">
-  <div class="q-num">Pregunta 2 de 5</div>
-  <h2>¿Cuánto tiempo por día podrías dedicar a esto?</h2>
-</div>
-<div class="options">
-  <div class="option" onclick="answer(2, this)"><span class="letter">A</span><span class="text">Menos de 30 minutos</span></div>
-  <div class="option" onclick="answer(2, this)"><span class="letter">B</span><span class="text">30 minutos a 1 hora</span></div>
-  <div class="option" onclick="answer(2, this)"><span class="letter">C</span><span class="text">1-2 horas</span></div>
-  <div class="option" onclick="answer(2, this)"><span class="letter">D</span><span class="text">Más de 2 horas — esto es mi prioridad</span></div>
-</div>
-</div>
-
-<!-- SCREEN 3 -->
-<div class="screen" id="s3">
-<div class="question">
-  <div class="q-num">Pregunta 3 de 5</div>
-  <h2>¿Has usado ChatGPT u otra IA?</h2>
-</div>
-<div class="options">
-  <div class="option" onclick="answer(3, this)"><span class="letter">A</span><span class="text">No sé qué es eso</span></div>
-  <div class="option" onclick="answer(3, this)"><span class="letter">B</span><span class="text">Escuché hablar pero nunca lo usé</span></div>
-  <div class="option" onclick="answer(3, this)"><span class="letter">C</span><span class="text">Lo usé un par de veces por curiosidad</span></div>
-  <div class="option" onclick="answer(3, this)"><span class="letter">D</span><span class="text">Lo uso regularmente</span></div>
-</div>
-</div>
-
-<!-- SCREEN 4 -->
-<div class="screen" id="s4">
-<div class="question">
-  <div class="q-num">Pregunta 4 de 5</div>
-  <h2>¿Qué es lo que más te frena hoy?</h2>
-</div>
-<div class="options">
-  <div class="option" onclick="answer(4, this)"><span class="letter">A</span><span class="text">No sé por dónde empezar</span></div>
-  <div class="option" onclick="answer(4, this)"><span class="letter">B</span><span class="text">No tengo plata para invertir</span></div>
-  <div class="option" onclick="answer(4, this)"><span class="letter">C</span><span class="text">No sé si esto funciona de verdad</span></div>
-  <div class="option" onclick="answer(4, this)"><span class="letter">D</span><span class="text">No tengo conocimientos técnicos</span></div>
-</div>
-</div>
-
-<!-- SCREEN 5 -->
-<div class="screen" id="s5">
-<div class="question">
-  <div class="q-num">Pregunta 5 de 5</div>
-  <h2>Si pudieras generar $1,000 USD extra por mes, ¿qué harías?</h2>
-</div>
-<div class="options">
-  <div class="option" onclick="answer(5, this)"><span class="letter">A</span><span class="text">Pagaría deudas y respiraría tranquilo</span></div>
-  <div class="option" onclick="answer(5, this)"><span class="letter">B</span><span class="text">Lo ahorraría para dejar mi trabajo</span></div>
-  <div class="option" onclick="answer(5, this)"><span class="letter">C</span><span class="text">Viajaría y viviría mejor</span></div>
-  <div class="option" onclick="answer(5, this)"><span class="letter">D</span><span class="text">Lo reinvertiría para ganar más</span></div>
-</div>
-</div>
-
-<!-- RESULT -->
-<div class="screen" id="result">
-
-<div class="result-card">
-  <div class="score-circle">
-    <span class="num">92</span>
-    <span class="of">de 100</span>
+  <!-- Intro -->
+  <div id="screen-intro">
+    <div class="intro-tag">Diagnóstico gratuito · Joaco Cámara</div>
+    <h1 class="intro-h1">¿Por qué tu negocio no vende por Instagram?</h1>
+    <p class="intro-sub">Respondé 4 preguntas y te digo exactamente qué está frenando tus ventas. Al final, si tu caso aplica, te invito a la clase gratuita del jueves.</p>
+    <div class="intro-meta">
+      <div class="meta-pill"><span>⏱️</span><strong>2 minutos</strong></div>
+      <div class="meta-pill"><span>❓</span><strong>4 preguntas</strong></div>
+      <div class="meta-pill"><span>🎁</span><strong>Diagnóstico personalizado</strong></div>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">HACER EL DIAGNÓSTICO GRATIS →</button>
   </div>
-  <h2>Tu resultado</h2>
-  <div class="verdict">Candidato ideal para el sistema</div>
-  <p>Basado en tus respuestas, estás en una posición excelente para implementar el sistema de productos digitales con IA. No necesitás experiencia previa — el 78% de los alumnos exitosos empezaron exactamente donde estás vos.</p>
-</div>
 
-<div class="reveal">
-  <div class="label">Tu diagnóstico</div>
-  <div class="gauge">
-    <div class="gauge-item">
-      <div class="gauge-label"><span class="name">Motivación</span><span class="val">95%</span></div>
-      <div class="bar"><div class="fill" style="width: 95%;"></div></div>
-    </div>
-    <div class="gauge-item">
-      <div class="gauge-label"><span class="name">Disponibilidad de tiempo</span><span class="val">80%</span></div>
-      <div class="bar"><div class="fill" style="width: 80%;"></div></div>
-    </div>
-    <div class="gauge-item">
-      <div class="gauge-label"><span class="name">Conocimiento técnico necesario</span><span class="val">100%</span></div>
-      <div class="bar"><div class="fill" style="width: 100%;"></div></div>
-    </div>
-    <div class="gauge-item">
-      <div class="gauge-label"><span class="name">Probabilidad de éxito con el sistema</span><span class="val">92%</span></div>
-      <div class="bar"><div class="fill" style="width: 92%;"></div></div>
-    </div>
+  <!-- Quiz -->
+  <div id="screen-quiz">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="q-counter" id="qCounter">Pregunta 1 de 4</div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="qOptions"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">SIGUIENTE →</button>
   </div>
-  <p style="font-size: 13px; color: #888; margin-top: 8px;">* "Conocimiento técnico necesario" es 100% porque la IA elimina esa barrera. No necesitás saber nada.</p>
-</div>
 
-<div class="reveal">
-  <div class="label">Lo que te falta</div>
-  <h3>Solo el sistema. Los 3 pasos exactos.</h3>
-  <p>Tenés la motivación. Tenés el tiempo. Lo único que necesitás es saber CÓMO. Y eso es exactamente lo que se enseña en la clase gratuita.</p>
-  <div class="reveal-steps">
-    <div class="reveal-step"><div class="n">1</div><div class="t">Encontrar</div><div class="d">Qué vender</div></div>
-    <div class="reveal-step"><div class="n">2</div><div class="t">Crear</div><div class="d">Con ChatGPT</div></div>
-    <div class="reveal-step"><div class="n">3</div><div class="t">Vender</div><div class="d">En automático</div></div>
+  <!-- Result -->
+  <div id="screen-result">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-tag">Tu diagnóstico</div>
+    <h2 class="result-h2" id="resultH2"></h2>
+    <p class="result-diag" id="resultDiag"></p>
+    <div class="result-items" id="resultItems"></div>
+    <div class="class-box">
+      <h3>La clase del jueves es exactamente para vos</h3>
+      <p>Joaco Cámara · Zoom en vivo · Jueves 8PM · Gratis · 90 min</p>
+      <button class="class-cta" onclick="openPopup()">RESERVAR MI LUGAR AHORA →</button>
+    </div>
+    <button class="restart-btn" onclick="restartQuiz()">Repetir el diagnóstico</button>
   </div>
-</div>
-
-<div class="mentor-mini">
-  <img src="img/jesus.webp" alt="Jesús Tassarolo" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
-  <div class="info"><strong>Jesús Tassarolo</strong> — Fundador, Practigram. +2,000 alumnos. $1M+ USD facturado. Two Comma Club Award.</div>
-</div>
-
-<div class="cta-final">
-  <h3>Tu siguiente paso</h3>
-  <div class="when">Clase gratuita · Lunes 8PM · Zoom en vivo · ~387 de 1,000 lugares</div>
-  <a href="#" onclick="event.preventDefault();openPopup();">VER LA CLASE GRATIS →</a>
-  <div class="fine">Sin tarjeta · Sin compromiso · 90 minutos</div>
-</div>
-
-</div>
 
 </div>
 
@@ -257,112 +299,223 @@ fbq('track','PageView');
 <div class="popup-box">
   <button class="popup-close" onclick="closePopup()">&times;</button>
   <div class="popup-header">
-    <div class="popup-score-mini"><span>92</span>/100</div>
-    <h3>Tu perfil es ideal. Solo falta registrarte.</h3>
-    <p>Completá tus datos para recibir el acceso a la clase.</p>
+    <p class="popup-eyebrow">Reservá tu lugar...</p>
+    <h3>"Te mando el link de Zoom antes del jueves."</h3>
+    <p class="popup-sub">— Joaco</p>
   </div>
   <form class="popup-form" id="regForm">
-    <input type="text" id="f_nombre" name="name" placeholder="¿Cómo te llamás?" required autocomplete="name">
-    <input type="email" id="f_email" name="email" placeholder="Tu email" required autocomplete="email">
+    <input type="text" id="f_nombre" name="name" placeholder="Tu nombre completo" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Tu mejor correo electrónico" required autocomplete="email">
     <div class="phone-row">
       <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
-      <input type="tel" id="f_tel" name="tel" placeholder="WhatsApp" required autocomplete="tel-national">
+      <input type="tel" id="f_tel" name="tel" placeholder="Tu WhatsApp" required autocomplete="tel-national">
     </div>
     <div class="radio-question">
-      <label class="q-label">¿Tenés computadora o PC para aplicar el proceso?</label>
+      <label class="q-label">¿Tenés computadora o celular para aplicar el sistema?</label>
       <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>No, no tengo computadora</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo conseguir una</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>Solo tengo celular</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo usar los dos</span></label>
     </div>
-    <button type="submit" class="popup-submit">ACCEDER A LA CLASE GRATIS →</button>
-    <div class="popup-safe">Lunes 8PM · 90 min · ~387 lugares</div>
+    <button type="submit" class="popup-submit">RESERVAR MI LUGAR — ES GRATIS →</button>
+    <div class="popup-safe">Sin tarjeta de crédito. Sin llamadas. Solo el link.</div>
   </form>
 </div>
 </div>
 
 <style>
-.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:16px}
 .popup-overlay.open{display:flex;animation:popFade .3s ease}
 @keyframes popFade{from{opacity:0}to{opacity:1}}
-.popup-box{background:#fff;border-radius:16px;max-width:440px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#1a1a1a;overflow:hidden}
+.popup-box{background:#1a1a1a;border-radius:10px;max-width:460px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#f0f0f0;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5);border:1px solid #2a2a2a}
 @keyframes popSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#999;cursor:pointer;line-height:1;z-index:2}
-.popup-header{padding:28px 24px 20px;text-align:center;background:#f8f7f4;border-bottom:1px solid #eee}
-.popup-score-mini{display:inline-flex;align-items:baseline;gap:2px;background:#ede9fe;color:#7c3aed;padding:6px 14px;border-radius:20px;font-size:14px;font-weight:700;margin-bottom:12px}
-.popup-score-mini span{font-size:22px;font-weight:800}
-.popup-header h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;line-height:1.3}
-.popup-header p{font-size:13px;color:#888;margin-top:4px}
-.popup-form{display:flex;flex-direction:column;gap:10px;padding:20px 24px 24px}
-.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Inter',sans-serif;font-size:15px;padding:13px 16px;border:2px solid #e5e5e0;border-radius:10px;outline:none;transition:border-color .2s;background:#fff;color:#1a1a1a;-webkit-appearance:none;width:100%}
-.popup-form input::placeholder{color:#ccc}
-.popup-form input:focus,.popup-form select:focus{border-color:#7c3aed}
+.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;color:#555;cursor:pointer;line-height:1;z-index:2}
+.popup-header{padding:28px 28px 20px;border-bottom:1px solid #222;background:#c0392b}
+.popup-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;font-weight:700}
+.popup-header h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;line-height:1.4;color:#fff}
+.popup-header .popup-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.6);margin-top:6px}
+.popup-close{color:rgba(255,255,255,0.4)}
+.popup-form{display:flex;flex-direction:column;gap:12px;padding:24px 28px 28px}
+.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Inter',sans-serif;font-size:15px;padding:13px 16px;border:1px solid #333;border-radius:6px;outline:none;transition:border-color .2s;background:#111;color:#f0f0f0;-webkit-appearance:none;width:100%}
+.popup-form input::placeholder{color:#444}
+.popup-form input:focus,.popup-form select:focus{border-color:#c0392b}
 .phone-row{display:flex;gap:8px}
-.phone-code{flex:0 0 110px!important;width:110px!important;padding:13px 8px!important;font-size:14px!important;color:#1a1a1a!important}
+.phone-code{flex:0 0 110px!important;width:110px!important;padding:13px 8px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;color:#f0f0f0!important}
 .phone-row input[type="tel"]{flex:1}
 .radio-question{display:flex;flex-direction:column;gap:6px;margin-top:4px}
-.q-label{font-size:13px;font-weight:600;color:#555}
-.radio-opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:2px solid #e5e5e0;border-radius:10px;cursor:pointer;transition:all .2s;font-size:14px;color:#555}
-.radio-opt:hover{border-color:#7c3aed}
-.radio-opt:has(input:checked){border-color:#7c3aed;background:#faf8ff}
-.radio-opt input{accent-color:#7c3aed;width:16px;height:16px;flex-shrink:0}
-.popup-submit{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;padding:16px;border:none;border-radius:10px;background:#7c3aed;color:#fff;cursor:pointer;transition:all .2s;width:100%;margin-top:4px}
-.popup-submit:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(124,58,237,0.2)}
-.popup-safe{text-align:center;font-size:12px;color:#bbb}
-@media(max-width:480px){.popup-form{padding:16px 20px 20px}.popup-header{padding:24px 20px 16px}}
+.q-label{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#bbb}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid #2a2a2a;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;font-size:14px;color:#888}
+.radio-opt:hover{border-color:#c0392b;background:#1f0f0f;color:#fff}
+.radio-opt:has(input:checked){border-color:#c0392b;background:#1f0f0f;color:#fff}
+.radio-opt input{accent-color:#c0392b;width:16px;height:16px;flex-shrink:0}
+.popup-submit{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;padding:16px;border:none;border-radius:6px;background:#c0392b;color:#fff;cursor:pointer;transition:background .2s;width:100%;margin-top:4px}
+.popup-submit:hover{background:#a93226}
+.popup-safe{text-align:center;font-family:'Inter',sans-serif;font-size:13px;color:#444}
+@media(max-width:480px){.popup-form{padding:20px}.popup-header{padding:24px 20px 16px}.popup-header h3{font-size:18px}}
 </style>
 
 <script>
+var questions = [
+  {
+    text: "¿Cuánto tiempo lleva tu negocio en Instagram?",
+    options: ["Acabo de empezar (menos de 3 meses)", "Varios meses pero sin resultados claros", "Más de un año publicando con resultados irregulares", "Más de un año y prácticamente no vendo"]
+  },
+  {
+    text: "¿Qué estrategia usás más para conseguir clientes por Instagram?",
+    options: ["El botón 'Promocionar' cada tanto", "Publicar contenido y esperar", "Responder mensajes y hacer seguimiento", "No tengo estrategia definida"]
+  },
+  {
+    text: "¿Cuántos mensajes de potenciales clientes recibís por semana?",
+    options: ["Ninguno o casi ninguno", "1 a 3 mensajes, pero pocos compran", "4 a 10 mensajes con buena conversión", "Más de 10 — el problema es la capacidad, no los clientes"]
+  },
+  {
+    text: "¿Cuál es tu mayor frustración con Instagram?",
+    options: ["Publico mucho y vendo poco", "No sé qué tipo de contenido crear", "Tengo seguidores pero no se convierten en clientes", "Gastasto en publicidad pero no funciona"]
+  }
+];
+
+var answers = [];
+var current = 0;
+
+function startQuiz() {
+  document.getElementById('screen-intro').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  current = idx;
+  var q = questions[idx];
+  var letters = ['A','B','C','D'];
+  document.getElementById('qCounter').textContent = 'Pregunta ' + (idx+1) + ' de ' + questions.length;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('progressFill').style.width = ((idx / questions.length) * 100) + '%';
+
+  var html = '';
+  q.options.forEach(function(opt, i) {
+    html += '<button class="option-btn" onclick="selectOption(this, ' + i + ')">' +
+      '<div class="option-letter">' + letters[i] + '</div>' +
+      '<div class="option-text">' + opt + '</div>' +
+    '</button>';
+  });
+  document.getElementById('qOptions').innerHTML = html;
+  document.getElementById('nextBtn').className = 'next-btn';
+  document.getElementById('nextBtn').textContent = idx < questions.length - 1 ? 'SIGUIENTE →' : 'VER MI DIAGNÓSTICO →';
+}
+
+function selectOption(btn, idx) {
+  document.querySelectorAll('.option-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  answers[current] = idx;
+  document.getElementById('nextBtn').className = 'next-btn visible';
+}
+
+function nextQuestion() {
+  if (answers[current] === undefined) return;
+  if (current < questions.length - 1) {
+    showQuestion(current + 1);
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('progressFill').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('screen-quiz').style.display = 'none';
+    document.getElementById('screen-result').style.display = 'block';
+    renderResult();
+  }, 300);
+}
+
+function renderResult() {
+  var a0 = answers[0], a1 = answers[1], a2 = answers[2], a3 = answers[3];
+  var icon, title, diag, items;
+
+  if (a1 === 0 || a3 === 3) {
+    icon = '💸';
+    title = 'Tu mayor problema: estás gastando donde no debés';
+    diag = 'El botón "Promocionar" está diseñado para que Meta facture, no para que vos vendas. El <strong>dinero que invertiste hasta ahora no te está generando clientes reales</strong> — solo alcance barato a gente que no quiere comprarte.';
+    items = [
+      { icon: '❌', text: '<strong>Lo que hacés:</strong> Pagás para que más gente vea tu contenido.' },
+      { icon: '✅', text: '<strong>Lo que necesitás:</strong> Un sistema para convertir a los que <em>ya te siguen</em> en clientes — sin pagar.' },
+      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te muestra por qué "Promocionar" no funciona y qué hacer en su lugar.' }
+    ];
+  } else if (a2 <= 1 && a3 <= 1) {
+    icon = '📢';
+    title = 'Tu mayor problema: tu contenido no está diseñado para vender';
+    diag = 'Publicás, tenés seguidores, pero el contenido no convierte. No es un problema de cantidad — es un problema de <strong>qué tipo de contenido publicás</strong>. Hay 3 tipos de publicaciones que venden. El resto entretiene, pero no convierte.';
+    items = [
+      { icon: '❌', text: '<strong>Lo que hacés:</strong> Publicás para informar o entretener, no para vender.' },
+      { icon: '✅', text: '<strong>Lo que necesitás:</strong> Los 3 tipos de contenido que llevan seguidores a tu WhatsApp.' },
+      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te muestra exactamente cuáles son y cómo aplicarlos.' }
+    ];
+  } else if (a2 >= 2) {
+    icon = '🚀';
+    title = 'Buenas noticias: ya tenés tráfico. Falta el sistema de conversión';
+    diag = 'Sos de los pocos que ya tienen potenciales clientes interactuando. El problema es que <strong>no tenés un sistema estructurado para convertirlos</strong>. Con el método correcto, cada mensaje que recibís debería convertirse en una venta.';
+    items = [
+      { icon: '❌', text: '<strong>Lo que hacés:</strong> Respondés mensajes de manera reactiva y ad hoc.' },
+      { icon: '✅', text: '<strong>Lo que necesitás:</strong> Un sistema de conversión que funcione en piloto automático.' },
+      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te muestra cómo cerrar más ventas con los clientes que ya te escriben.' }
+    ];
+  } else {
+    icon = '🔍';
+    title = 'Tu mayor problema: no tenés una estrategia definida — y eso tiene solución en 90 minutos';
+    diag = 'Sin un sistema claro, Instagram se siente como una ruleta. Algunas semanas hay clientes, otras no. <strong>Eso no es tu culpa — nadie te enseñó el sistema correcto.</strong> La buena noticia: es más simple de lo que parece.';
+    items = [
+      { icon: '❌', text: '<strong>Lo que hacés:</strong> Actuás de manera intuitiva, sin un proceso replicable.' },
+      { icon: '✅', text: '<strong>Lo que necesitás:</strong> Un sistema con pasos claros que podés repetir cada semana.' },
+      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te da el sistema completo — paso a paso — en 90 minutos.' }
+    ];
+  }
+
+  document.getElementById('resultIcon').textContent = icon;
+  document.getElementById('resultH2').textContent = title;
+  document.getElementById('resultDiag').innerHTML = diag;
+
+  var itemsHtml = '';
+  items.forEach(function(item) {
+    itemsHtml += '<div class="result-item"><div class="result-icon-sm">' + item.icon + '</div><div class="result-item-text">' + item.text + '</div></div>';
+  });
+  document.getElementById('resultItems').innerHTML = itemsHtml;
+}
+
+function restartQuiz() {
+  answers = [];
+  current = 0;
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-intro').style.display = 'block';
+}
+
 document.getElementById('regForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var code=document.getElementById('f_code');
-  var pais=code.options[code.selectedIndex].getAttribute('data-pais');
-  var tel=code.value+document.getElementById('f_tel').value;
-  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si')?'gracias-calificado':'gracias-no-calificado';
-  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',tel);qs.set('pais_lead',pais);
+  e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
+  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si'||pc&&pc.value==='puedo')?'gracias-calificado':'gracias-no-calificado';
+  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
   window.location.href=dest+'?'+qs.toString();
 });
-function answer(q, el) {
-  // Mark selected
-  el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-
-  // Update progress
-  const pct = (q / 5) * 100;
-  document.getElementById('progress').style.width = pct + '%';
-
-  // After brief delay, go to next
-  setTimeout(() => {
-    document.getElementById('s' + q).classList.remove('active');
-    if (q < 5) {
-      document.getElementById('s' + (q + 1)).classList.add('active');
-    } else {
-      document.getElementById('result').classList.add('active');
-      document.getElementById('progress').style.width = '100%';
-    }
-  }, 400);
-}
 </script>
 <script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
 
-<!-- Exit intent popup (componente unificado) -->
 <link rel="stylesheet" href="/css/exit-popup.css">
 <script src="/js/exit-popup.js"
   data-variant="v8"
-  data-headline="Esperá — tu resultado está casi listo"
-  data-sub="Ya respondiste varias preguntas y tu <strong>diagnóstico personalizado</strong> está casi listo. No te vayas sin verlo."
-  data-cta="SEGUIR CON EL QUIZ"
-  data-decline="Salir igual"
-  data-icon="⚡"
-  data-bg="#ffffff"
-  data-ink="#1a1a1a"
-  data-mute="#666"
-  data-strong="#7c3aed"
-  data-accent="#7c3aed"
+  data-headline="¿Ya sabés cuál es tu problema?"
+  data-sub="La clase de este <strong>jueves a las 8PM</strong> tiene la solución — sin importar cuál sea tu diagnóstico. Gratis, en vivo, 90 minutos."
+  data-cta="RESERVAR MI LUGAR"
+  data-decline="Salir"
+  data-icon="🔍"
+  data-bg="#1a1a1a"
+  data-ink="#f0f0f0"
+  data-mute="#888"
+  data-strong="#c0392b"
+  data-accent="#c0392b"
   data-accent-ink="#fff"
-  data-accent-shadow="rgba(124,58,237,.35)"
+  data-accent-shadow="rgba(192,57,43,.4)"
   data-font="'Inter', sans-serif"
-  data-min-time="15"
-  data-min-scroll="25"></script>
+  data-radius="8px"
+  data-cta-radius="6px"
+  data-min-time="30"
+  data-min-scroll="0"></script>
 <script src="/js/youtube-tag.js"></script>
 </body>
 </html>

@@ -3,85 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V3 — Minimalista Premium</title>
+<title>Clase gratis con Joaco Cámara — Jueves 8PM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"></noscript>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+html, body { height: 100%; }
+body {
+  background: #fafafa;
+  color: #111;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+.page { max-width: 560px; width: 100%; }
 
-/* Nav */
-.nav { padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; }
-.nav .logo { font-size: 14px; font-weight: 700; letter-spacing: -0.5px; }
-.nav .live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.nav .live-badge::before { content: ''; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 28px;
+}
 
-/* Hero */
-.hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 24px; position: relative; }
-.hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-.hero .overtitle { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #555; margin-bottom: 32px; }
-.hero h1 { font-size: 64px; font-weight: 700; letter-spacing: -2px; line-height: 1.1; max-width: 800px; margin-bottom: 24px; }
-.hero h1 .gradient { background: linear-gradient(90deg, #fff 0%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hero .desc { font-size: 18px; color: #666; max-width: 500px; line-height: 1.6; margin-bottom: 48px; }
-.hero-cta { display: inline-flex; align-items: center; gap: 12px; background: #fff; color: #000; font-weight: 600; font-size: 16px; padding: 16px 36px; border-radius: 8px; text-decoration: none; transition: all 0.3s; }
-.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(255,255,255,0.1); }
-.hero-cta .arrow { font-size: 20px; transition: transform 0.3s; }
-.hero-cta:hover .arrow { transform: translateX(4px); }
-.hero-meta { margin-top: 24px; font-size: 13px; color: #333; }
+h1 {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
 
-/* Divider */
-.divider { width: 1px; height: 120px; background: linear-gradient(to bottom, transparent, #333, transparent); margin: 0 auto; }
+h1 em {
+  font-style: normal;
+  color: #c0392b;
+}
 
-/* Anti-section */
-.anti { padding: 80px 24px; max-width: 600px; margin: 0 auto; text-align: center; }
-.anti h2 { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 40px; }
-.anti-list { list-style: none; }
-.anti-list li { font-size: 20px; color: #333; padding: 16px 0; border-bottom: 1px solid #111; transition: color 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px; }
-.anti-list li:hover { color: #fff; }
-.anti-list .x { color: #ef4444; font-weight: 700; }
-.anti-list .check { color: #22c55e; font-weight: 700; }
+.subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 48px;
+  max-width: 440px;
+}
 
-/* 3 pillars */
-.pillars { padding: 80px 24px; max-width: 900px; margin: 0 auto; }
-.pillars h2 { text-align: center; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 48px; }
-.pillar-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.pillar { background: #0a0a0a; padding: 48px 32px; text-align: center; border: 1px solid #111; transition: border-color 0.3s; }
-.pillar:hover { border-color: #333; }
-.pillar .num { font-size: 64px; font-weight: 700; color: #1a1a1a; line-height: 1; margin-bottom: 16px; }
-.pillar h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-.pillar p { font-size: 14px; color: #555; line-height: 1.6; }
+.cta-btn {
+  display: block;
+  width: 100%;
+  background: #111;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 20px 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.cta-btn:hover { background: #c0392b; transform: translateY(-1px); }
 
-/* Mentor */
-.mentor-section { padding: 80px 24px; text-align: center; }
-.mentor-section .line { width: 40px; height: 1px; background: #333; margin: 0 auto 24px; }
-.mentor-section .name { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
-.mentor-section .role { font-size: 14px; color: #555; margin-bottom: 20px; }
-.mentor-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-.mentor-stat { text-align: center; }
-.mentor-stat .val { font-size: 28px; font-weight: 700; }
-.mentor-stat .lbl { font-size: 12px; color: #555; margin-top: 2px; }
+.cta-sub {
+  font-size: 13px;
+  color: #bbb;
+  text-align: center;
+  margin-bottom: 64px;
+}
 
-/* Final CTA */
-.final-cta { padding: 120px 24px; text-align: center; position: relative; }
-.final-cta::before { content: ''; position: absolute; width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(255,255,255,0.02) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-.final-cta h2 { font-size: 48px; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; }
-.final-cta .when { font-size: 18px; color: #555; margin-bottom: 40px; }
-.final-cta .btn { display: inline-block; border: 1px solid #fff; color: #fff; font-weight: 600; font-size: 16px; padding: 18px 48px; border-radius: 8px; text-decoration: none; transition: all 0.3s; }
-.final-cta .btn:hover { background: #fff; color: #000; }
-.final-cta .note { margin-top: 20px; font-size: 12px; color: #333; }
+.divider {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin-bottom: 40px;
+}
 
-/* Footer */
-footer { padding: 40px 24px; text-align: center; border-top: 1px solid #111; }
-footer .logos { display: flex; justify-content: center; gap: 32px; }
-footer .logos span { font-size: 12px; color: #333; letter-spacing: 1px; text-transform: uppercase; }
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.detail h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 6px;
+}
+.detail p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
 
-@media (max-width: 768px) {
-  .hero h1 { font-size: 36px; }
-  .pillar-row { grid-template-columns: 1fr; }
-  .final-cta h2 { font-size: 32px; }
+.bullets { margin-bottom: 48px; }
+.bullet {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.bullet:last-child { border-bottom: none; }
+.bullet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c0392b;
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.bullet p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+}
+.bullet strong { color: #111; }
+
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  margin-bottom: 32px;
+}
+.instructor-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.instructor-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+.instructor-bio {
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  body { align-items: flex-start; padding-top: 48px; }
+  .details { grid-template-columns: 1fr; gap: 16px; }
 }
 </style>
 <script>function openPopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.add("open");document.body.style.overflow="hidden";}}function closePopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.remove("open");document.body.style.overflow="";}}</script>
@@ -99,179 +182,148 @@ fbq('track','PageView');
 <!-- End Meta Pixel Code -->
 </head>
 <body>
+<div class="page">
 
-<div class="nav">
-<div class="logo">ACADEMIA DE PUBLICISTAS</div>
-<div class="live-badge">Clase en vivo — Lunes 8PM</div>
-</div>
+  <div class="eyebrow">Practigram · Clase en vivo</div>
 
-<div class="hero">
-<div class="overtitle">Clase gratuita por Zoom</div>
-<h1>Usá la IA para crear <span class="gradient">productos digitales que se venden solos.</span></h1>
-<p class="desc">Sin saber de diseño. Sin saber de marketing. Sin saber programar. Solo vos, ChatGPT, y un sistema de 3 pasos.</p>
-<a href="#" class="hero-cta" onclick="event.preventDefault();openPopup();">Reservar lugar <span class="arrow">→</span></a>
-<p class="hero-meta">1,000 lugares · Quedan ~387 · No se graba</p>
-</div>
+  <h1>Vendé más por Instagram.<br><em>Sin pagar publicidad.</em></h1>
 
-<div class="divider"></div>
+  <p class="subtitle">
+    Este jueves enseño el sistema que usan cientos de emprendedores argentinos para convertir seguidores en clientes — sin el botón "Promocionar", sin agencia, sin magia.
+  </p>
 
-<div class="anti">
-<h2>Esto no es para vos si</h2>
-<ul class="anti-list">
-  <li><span class="x">×</span> Buscás hacerte rico mañana</li>
-  <li><span class="x">×</span> No querés dedicar 1 hora por día</li>
-  <li><span class="x">×</span> Pensás que la IA es una moda</li>
-</ul>
-<h2 style="margin-top: 48px;">Sí es para vos si</h2>
-<ul class="anti-list">
-  <li><span class="check">✓</span> Querés un ingreso que no dependa de tu tiempo</li>
-  <li><span class="check">✓</span> Nunca hiciste nada en marketing digital</li>
-  <li><span class="check">✓</span> Querés aprender a usar IA para generar dinero</li>
-  <li><span class="check">✓</span> Estás cansado de promesas vacías</li>
-</ul>
-</div>
+  <button class="cta-btn" onclick="openPopup()">QUIERO MI LUGAR EN LA CLASE →</button>
+  <p class="cta-sub">Jueves 8PM · Por Zoom · 90 minutos · Sin costo · Sin grabación</p>
 
-<div class="divider"></div>
+  <hr class="divider">
 
-<div class="pillars">
-<h2>Lo que vas a aprender</h2>
-<div class="pillar-row">
-  <div class="pillar">
-    <div class="num">01</div>
-    <h3>Encontrar</h3>
-    <p>Qué producto crear. Sin adivinar. Basado en demanda real.</p>
+  <div class="details">
+    <div class="detail"><h3>Cuándo</h3><p>Jueves a las 8PM</p></div>
+    <div class="detail"><h3>Formato</h3><p>Zoom en vivo</p></div>
+    <div class="detail"><h3>Duración</h3><p>90 minutos</p></div>
+    <div class="detail"><h3>Costo</h3><p>100% gratis</p></div>
   </div>
-  <div class="pillar">
-    <div class="num">02</div>
-    <h3>Crear</h3>
-    <p>ChatGPT como tu empleado. Diseña, escribe, arma. Vos dirigís.</p>
+
+  <div class="bullets">
+    <div class="bullet">
+      <div class="bullet-dot"></div>
+      <p><strong>Por qué el botón "Promocionar" no funciona</strong> — y qué hacer en su lugar sin gastar un peso.</p>
+    </div>
+    <div class="bullet">
+      <div class="bullet-dot"></div>
+      <p><strong>Los 3 contenidos que convierten</strong> — los únicos que llevan a tus seguidores a comprarte.</p>
+    </div>
+    <div class="bullet">
+      <div class="bullet-dot"></div>
+      <p><strong>Cómo vender sin postear todos los días</strong> — el sistema de comunidad que trabaja por vos.</p>
+    </div>
+    <div class="bullet">
+      <div class="bullet-dot"></div>
+      <p><strong>Preguntas y respuestas en vivo</strong> — le preguntás directamente a Joaco sobre tu negocio.</p>
+    </div>
   </div>
-  <div class="pillar">
-    <div class="num">03</div>
-    <h3>Vender</h3>
-    <p>Un sistema automático. Ventas mientras dormís. 24/7.</p>
+
+  <div class="instructor">
+    <div class="instructor-icon">📸</div>
+    <div>
+      <div class="instructor-name">Joaco Cámara</div>
+      <div class="instructor-bio">Estratega de Instagram · +5 años formando emprendedores · Sistema Practigram</div>
+    </div>
   </div>
-</div>
-</div>
 
-<div class="mentor-section">
-<div class="line"></div>
-<div class="name">Jesús Tassarolo</div>
-<div class="role">Fundador · Practigram</div>
-<div class="mentor-stats">
-  <div class="mentor-stat"><div class="val">2,000+</div><div class="lbl">Alumnos</div></div>
-  <div class="mentor-stat"><div class="val">$1M+</div><div class="lbl">Facturado</div></div>
-  <div class="mentor-stat"><div class="val">$100K+</div><div class="lbl">Ads/mes</div></div>
-  <div class="mentor-stat"><div class="val">10+</div><div class="lbl">Años</div></div>
-</div>
-</div>
+  <button class="cta-btn" onclick="openPopup()">RESERVAR MI LUGAR GRATIS →</button>
+  <p class="cta-sub">Los cupos son limitados. No se graba.</p>
 
-<div class="final-cta">
-<h2>Lunes. 8PM. Zoom.</h2>
-<p class="when">90 minutos que pueden cambiar cómo ganás dinero.</p>
-<a href="#" class="btn" onclick="event.preventDefault();openPopup();">Reservar mi lugar →</a>
-<p class="note">Gratis · Sin tarjeta · Solo tu email</p>
 </div>
-
-<footer>
-<div class="logos">
-  <span>Santander</span>
-  <span>Infobae</span>
-  <span>Caras</span>
-  <span>Fortuna</span>
-</div>
-</footer>
 
 <!-- POPUP REGISTRO -->
 <div class="popup-overlay" id="popupOverlay" onclick="if(event.target===this)closePopup()">
 <div class="popup-box">
   <button class="popup-close" onclick="closePopup()">&times;</button>
   <div class="popup-header">
-    <h3>Reservá tu lugar.</h3>
-    <p>Lunes 8PM · Zoom · 90 min</p>
+    <p class="popup-eyebrow">Un paso más...</p>
+    <h3>Te mando el link de Zoom directo a tu WhatsApp.</h3>
+    <p class="popup-sub">— Joaco</p>
   </div>
   <form class="popup-form" id="regForm">
-    <input type="text" id="f_nombre" name="name" placeholder="Nombre" required autocomplete="name">
-    <input type="email" id="f_email" name="email" placeholder="Email" required autocomplete="email">
+    <input type="text" id="f_nombre" name="name" placeholder="Tu nombre completo" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Tu mejor correo electrónico" required autocomplete="email">
     <div class="phone-row">
       <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
-      <input type="tel" id="f_tel" name="tel" placeholder="WhatsApp" required autocomplete="tel-national">
+      <input type="tel" id="f_tel" name="tel" placeholder="Tu WhatsApp" required autocomplete="tel-national">
     </div>
     <div class="radio-question">
-      <label class="q-label">¿Tenés computadora o PC para aplicar el proceso?</label>
+      <label class="q-label">¿Tenés computadora o celular para aplicar el sistema?</label>
       <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>No, no tengo computadora</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo conseguir una</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>Solo tengo celular</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo usar los dos</span></label>
     </div>
-    <button type="submit" class="popup-submit">Reservar lugar →</button>
-    <div class="popup-safe">Gratis · Sin tarjeta · Solo tu email</div>
+    <button type="submit" class="popup-submit">RESERVAR MI LUGAR — ES GRATIS →</button>
+    <div class="popup-safe">Sin tarjeta de crédito. Sin llamadas. Solo el link.</div>
   </form>
 </div>
 </div>
 
 <style>
-.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:16px}
-.popup-overlay.open{display:flex;animation:popFade .3s ease}
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.popup-overlay.open{display:flex;animation:popFade .25s ease}
 @keyframes popFade{from{opacity:0}to{opacity:1}}
-.popup-box{background:#000;border:1px solid #1a1a1a;border-radius:12px;max-width:420px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#fff;overflow:hidden}
-@keyframes popSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#333;cursor:pointer;line-height:1;z-index:2}
-.popup-header{padding:32px 28px 24px;text-align:left}
-.popup-header h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;letter-spacing:-1px;margin-bottom:4px}
-.popup-header p{font-size:13px;color:#444}
-.popup-form{display:flex;flex-direction:column;gap:10px;padding:0 28px 28px}
-.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Space Grotesk',sans-serif;font-size:15px;padding:13px 16px;border:1px solid #1a1a1a;border-radius:6px;outline:none;transition:border-color .2s;background:#0a0a0a;color:#fff;-webkit-appearance:none;width:100%}
-.popup-form input::placeholder{color:#333}
-.popup-form input:focus,.popup-form select:focus{border-color:#555}
+.popup-box{background:#fff;border-radius:4px;max-width:460px;width:100%;padding:0;position:relative;animation:popSlide .25s ease;color:#1a1a1a;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.15)}
+@keyframes popSlide{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;color:#bbb;cursor:pointer;line-height:1;z-index:2}
+.popup-header{padding:28px 28px 20px;border-bottom:1px solid #f0f0f0;text-align:left}
+.popup-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c0392b;margin-bottom:8px;font-weight:700}
+.popup-header h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;line-height:1.4;color:#111;letter-spacing:-0.3px}
+.popup-header .popup-sub{font-family:'Inter',sans-serif;font-size:14px;color:#bbb;margin-top:6px}
+.popup-form{display:flex;flex-direction:column;gap:12px;padding:24px 28px 28px}
+.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Inter',sans-serif;font-size:15px;padding:13px 16px;border:1.5px solid #ebebeb;border-radius:4px;outline:none;transition:border-color .2s;background:#fafafa;color:#111;-webkit-appearance:none;width:100%}
+.popup-form input::placeholder{color:#ccc}
+.popup-form input:focus,.popup-form select:focus{border-color:#111;background:#fff}
 .phone-row{display:flex;gap:8px}
-.phone-code{flex:0 0 105px!important;width:105px!important;padding:13px 8px!important;font-size:14px!important}
+.phone-code{flex:0 0 110px!important;width:110px!important;padding:13px 8px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;color:#111!important}
 .phone-row input[type="tel"]{flex:1}
 .radio-question{display:flex;flex-direction:column;gap:6px;margin-top:4px}
-.q-label{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;color:#555}
-.radio-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #1a1a1a;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Space Grotesk',sans-serif;font-size:13px;color:#555}
-.radio-opt:hover{border-color:#555;color:#aaa}
-.radio-opt:has(input:checked){border-color:#fff;color:#fff}
-.radio-opt input{accent-color:#fff;width:15px;height:15px;flex-shrink:0}
-.popup-submit{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;padding:14px;border:1px solid #fff;border-radius:6px;background:transparent;color:#fff;cursor:pointer;transition:all .2s;width:100%;margin-top:6px;letter-spacing:-0.3px}
-.popup-submit:hover{background:#fff;color:#000}
-.popup-safe{text-align:center;font-family:'Space Grotesk',sans-serif;font-size:11px;color:#333;letter-spacing:0.5px}
-@media(max-width:480px){.popup-form{padding:0 20px 24px}.popup-header{padding:28px 20px 20px}}
+.q-label{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#333}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid #ebebeb;border-radius:4px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;font-size:14px;color:#666}
+.radio-opt:hover{border-color:#111;background:#fafafa}
+.radio-opt:has(input:checked){border-color:#111;background:#f5f5f5}
+.radio-opt input{accent-color:#111;width:16px;height:16px;flex-shrink:0}
+.popup-submit{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.5px;padding:16px;border:none;border-radius:4px;background:#111;color:#fff;cursor:pointer;transition:background .2s;width:100%;margin-top:4px}
+.popup-submit:hover{background:#c0392b}
+.popup-safe{text-align:center;font-family:'Inter',sans-serif;font-size:13px;color:#ccc}
+@media(max-width:480px){.popup-form{padding:20px}.popup-header{padding:24px 20px 16px}.popup-header h3{font-size:18px}}
 </style>
 
 <script>
-document.querySelectorAll('.hero-cta, .final-cta .btn').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openPopup();});});
 document.getElementById('regForm').addEventListener('submit',function(e){
   e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
-  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si')?'gracias-calificado':'gracias-no-calificado';
+  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si'||pc&&pc.value==='puedo')?'gracias-calificado':'gracias-no-calificado';
   var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
   window.location.href=dest+'?'+qs.toString();
 });
 </script>
 <script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
 
-<!-- Exit intent popup (componente unificado) -->
 <link rel="stylesheet" href="/css/exit-popup.css">
 <script src="/js/exit-popup.js"
   data-variant="v3"
-  data-headline="Una pregunta"
-  data-sub="Si dudás, probablemente sea exactamente lo que vamos a explicar el lunes. <strong>Es gratis</strong>, son 90 minutos."
-  data-cta="OK, ME ANOTO"
-  data-decline="Salir igual"
-  data-icon="·"
-  data-bg="#000"
-  data-ink="#fff"
+  data-headline="Antes de irte…"
+  data-sub="La clase es este jueves a las 8PM. <strong>90 minutos. Gratis. En vivo.</strong> Los cupos son limitados."
+  data-cta="RESERVAR MI LUGAR"
+  data-decline="Salir"
+  data-icon="📍"
+  data-bg="#fafafa"
+  data-ink="#111"
   data-mute="#888"
-  data-strong="#fff"
-  data-accent="#fff"
-  data-accent-ink="#000"
-  data-accent-shadow="rgba(255,255,255,.2)"
-  data-font="'Space Grotesk', sans-serif"
-  data-border="1px solid #222"
-  data-radius="0"
-  data-cta-radius="0"
-  data-cta-transform="uppercase"
-  data-min-time="15"
-  data-min-scroll="25"></script>
+  data-strong="#c0392b"
+  data-accent="#111"
+  data-accent-ink="#fff"
+  data-accent-shadow="rgba(0,0,0,.2)"
+  data-font="'Inter', sans-serif"
+  data-radius="4px"
+  data-cta-radius="4px"
+  data-min-time="12"
+  data-min-scroll="20"></script>
 <script src="/js/youtube-tag.js"></script>
 </body>
 </html>
