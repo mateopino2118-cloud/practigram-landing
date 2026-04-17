@@ -1,6 +1,57 @@
+const https = require('https');
 const { VALID_IDS } = require('./_variants');
 const { query } = require('./_db');
 const { VALID_SOURCES, parseCookie } = require('./_source');
+
+// ── Meta Conversions API ──────────────────────────────────────────────────────
+const PIXEL_ID   = '880791860253272';
+const CAPI_TOKEN = process.env.META_CAPI_TOKEN || '';
+
+// Map internal event types → Meta standard events
+const CAPI_EVENT_MAP = {
+  impression: 'PageView',
+  conversion: 'Lead',
+};
+
+function capiSend(eventName, req) {
+  if (!CAPI_TOKEN) return;                    // token not set → skip silently
+  const ip  = ((req.headers['x-forwarded-for'] || '') + '').split(',')[0].trim() || '';
+  const ua  = (req.headers['user-agent'] || '').slice(0, 512);
+  const fbp = parseCookie(req.headers && req.headers.cookie, '_fbp') || undefined;
+  const fbc = parseCookie(req.headers && req.headers.cookie, '_fbc') || undefined;
+  const eventId = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+  const userData = {};
+  if (ip)  userData.client_ip_address = ip;
+  if (ua)  userData.client_user_agent = ua;
+  if (fbp) userData.fbp = fbp;
+  if (fbc) userData.fbc = fbc;
+
+  const payload = JSON.stringify({
+    data: [{
+      event_name:       eventName,
+      event_time:       Math.floor(Date.now() / 1000),
+      event_id:         eventId,
+      action_source:    'website',
+      user_data:        userData,
+    }],
+  });
+
+  const path = `/v19.0/${PIXEL_ID}/events?access_token=${CAPI_TOKEN}`;
+  const reqOpts = {
+    hostname: 'graph.facebook.com',
+    method:   'POST',
+    path,
+    headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
+  };
+  // fire-and-forget — never blocks the response to the browser
+  try {
+    const r = https.request(reqOpts);
+    r.on('error', () => {});
+    r.write(payload);
+    r.end();
+  } catch (_) { /* noop */ }
+}
 
 // Parse a User-Agent string into a coarse device class. Cheap regex —
 // no library, never throws. Returns 'mobile' | 'tablet' | 'desktop'.
@@ -70,5 +121,10 @@ module.exports = async (req, res) => {
     [variant, type, source, device, country, hourLocal, valueInt]
   );
   if (!result) return res.status(200).json({ ok: false, reason: 'db_error' });
+
+  // Fire CAPI for PageView (impression) and Lead (conversion) — fire-and-forget
+  const capiEvent = CAPI_EVENT_MAP[type];
+  if (capiEvent) capiSend(capiEvent, req);
+
   return res.status(200).json({ ok: true });
 };
