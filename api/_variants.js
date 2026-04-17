@@ -11,13 +11,14 @@ const ALL_VARIANTS = [
   { id: 'v6', file: 'v6-manifiesto',           name: 'Manifiesto' },
   { id: 'v7', file: 'v7-antes-despues',        name: 'Antes/Despues' },
   { id: 'v8', file: 'v8-quiz',                 name: 'Quiz Interactivo' },
+  { id: 'v9', file: 'v9-vidriera',             name: 'Instagram Vidriera' },
 ];
 
 const VALID_IDS  = ALL_VARIANTS.map(v => v.id);
 const VARIANT_MAP = Object.fromEntries(ALL_VARIANTS.map(v => [v.id, v]));
 
 const DEFAULT_ACTIVE = ['v1', 'v2', 'v3', 'v4'];
-const DEFAULT_QUEUE  = ['v5', 'v6', 'v7', 'v8'];
+const DEFAULT_QUEUE  = ['v5', 'v6', 'v7', 'v8', 'v9'];
 
 function getVariantById(id) { return VARIANT_MAP[id] || null; }
 function getActiveVariants(config) {

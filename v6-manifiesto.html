@@ -321,20 +321,10 @@ fbq('track','PageView');
     <p class="popup-sub">— Joaco</p>
   </div>
   <form class="popup-form" id="regForm">
-    <input type="text" id="f_nombre" name="name" placeholder="Tu nombre completo" required autocomplete="name">
-    <input type="email" id="f_email" name="email" placeholder="Tu mejor correo electrónico" required autocomplete="email">
-    <div class="phone-row">
-      <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
-      <input type="tel" id="f_tel" name="tel" placeholder="Tu WhatsApp" required autocomplete="tel-national">
-    </div>
-    <div class="radio-question">
-      <label class="q-label">¿Tenés computadora o celular para aplicar el sistema?</label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>Solo tengo celular</span></label>
-      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo usar los dos</span></label>
-    </div>
-    <button type="submit" class="popup-submit">RESERVAR MI LUGAR — ES GRATIS →</button>
-    <div class="popup-safe">Sin tarjeta de crédito. Sin llamadas. Solo el link.</div>
+    <input type="text" id="f_nombre" name="name" placeholder="Tu nombre o apodo" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Tu correo electrónico" required autocomplete="email">
+    <button type="submit" class="popup-submit">MÁS INFORMACIÓN →</button>
+    <div class="popup-safe">Te llevamos a WhatsApp con tu registro. Sin llamadas.</div>
   </form>
 </div>
 </div>
@@ -371,10 +361,11 @@ fbq('track','PageView');
 
 <script>
 document.getElementById('regForm').addEventListener('submit',function(e){
-  e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
-  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si'||pc&&pc.value==='puedo')?'gracias-calificado':'gracias-no-calificado';
-  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
-  window.location.href=dest+'?'+qs.toString();
+  e.preventDefault();
+  var nombre=document.getElementById('f_nombre').value;
+  var email=document.getElementById('f_email').value;
+  var msg='Hola, soy '+nombre+', mi mail es '+email+' y quiero el link para sumarme a las clases gratis para vender por Instagram';
+  window.location.href='https://wa.me/5493518166158?text='+encodeURIComponent(msg);
 });
 </script>
 <script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
