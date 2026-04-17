@@ -286,7 +286,7 @@ fbq('track','PageView');
     <div class="result-items" id="resultItems"></div>
     <div class="class-box">
       <h3>La clase del jueves es exactamente para vos</h3>
-      <p>Joaco Cámara · Zoom en vivo · Jueves 8PM · Gratis · 90 min</p>
+      <p>Joaco Cámara · YouTube Live · Jueves 20hs · Gratis · ~2 horas</p>
       <button class="class-cta" onclick="openPopup()">RESERVAR MI LUGAR AHORA →</button>
     </div>
     <button class="restart-btn" onclick="restartQuiz()">Repetir el diagnóstico</button>
@@ -300,7 +300,7 @@ fbq('track','PageView');
   <button class="popup-close" onclick="closePopup()">&times;</button>
   <div class="popup-header">
     <p class="popup-eyebrow">Reservá tu lugar...</p>
-    <h3>"Te mando el link de Zoom antes del jueves."</h3>
+    <h3>"Te mando el link de YouTube antes del jueves."</h3>
     <p class="popup-sub">— Joaco</p>
   </div>
   <form class="popup-form" id="regForm">
@@ -450,12 +450,12 @@ function renderResult() {
     ];
   } else {
     icon = '🔍';
-    title = 'Tu mayor problema: no tenés una estrategia definida — y eso tiene solución en 90 minutos';
+    title = 'Tu mayor problema: no tenés una estrategia definida — y eso tiene solución en una clase';
     diag = 'Sin un sistema claro, Instagram se siente como una ruleta. Algunas semanas hay clientes, otras no. <strong>Eso no es tu culpa — nadie te enseñó el sistema correcto.</strong> La buena noticia: es más simple de lo que parece.';
     items = [
       { icon: '❌', text: '<strong>Lo que hacés:</strong> Actuás de manera intuitiva, sin un proceso replicable.' },
       { icon: '✅', text: '<strong>Lo que necesitás:</strong> Un sistema con pasos claros que podés repetir cada semana.' },
-      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te da el sistema completo — paso a paso — en 90 minutos.' }
+      { icon: '🎯', text: '<strong>En la clase del jueves:</strong> Joaco te da el sistema completo — paso a paso — en vivo por YouTube.' }
     ];
   }
 
@@ -491,7 +491,7 @@ document.getElementById('regForm').addEventListener('submit',function(e){
 <script src="/js/exit-popup.js"
   data-variant="v8"
   data-headline="¿Ya sabés cuál es tu problema?"
-  data-sub="La clase de este <strong>jueves a las 8PM</strong> tiene la solución — sin importar cuál sea tu diagnóstico. Gratis, en vivo, 90 minutos."
+  data-sub="La clase de este <strong>jueves a las 20hs</strong> tiene la solución — sin importar cuál sea tu diagnóstico. Gratis, en vivo, por YouTube."
   data-cta="RESERVAR MI LUGAR"
   data-decline="Salir"
   data-icon="🔍"
