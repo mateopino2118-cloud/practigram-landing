@@ -4,12 +4,15 @@ const path = require('path');
 const app = express();
 app.set('trust proxy', 1); // trust Railway's reverse proxy
 
-// ── HTTPS redirect ────────────────────────────────────────────────────────────
+// ── HTTPS redirect + HSTS ─────────────────────────────────────────────────────
 app.use((req, res, next) => {
   const isLocal = (req.hostname === 'localhost' || req.hostname === '127.0.0.1');
   const isRailwayInternal = (req.hostname || '').endsWith('.railway.app');
   if (!req.secure && !isLocal && !isRailwayInternal) {
     return res.redirect(301, 'https://' + req.headers.host + req.url);
+  }
+  if (req.secure) {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   }
   next();
 });
