@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V7 — Antes vs Después</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; }
+
+/* Header */
+.top-bar { background: #fff; border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+.top-bar .logo { font-size: 13px; font-weight: 800; letter-spacing: -0.5px; }
+.top-bar .badge { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 12px; }
+
+/* Hero */
+.hero { text-align: center; padding: 64px 24px 40px; }
+.hero .chip { display: inline-block; background: #f3f4f6; color: #666; font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+.hero h1 { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.15; max-width: 700px; margin: 0 auto 12px; }
+.hero h1 .red { color: #dc2626; }
+.hero h1 .green { color: #16a34a; }
+.hero p { font-size: 17px; color: #888; max-width: 500px; margin: 0 auto; }
+
+/* Split comparison */
+.split-section { max-width: 1000px; margin: 48px auto; padding: 0 24px; }
+.split-label { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #bbb; margin-bottom: 24px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+.side { padding: 48px 36px; }
+.side.before { background: #1a1a1a; color: #fff; }
+.side.after { background: #fff; }
+.side .tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; display: inline-block; padding: 4px 12px; border-radius: 4px; }
+.side.before .tag { background: rgba(239,68,68,0.15); color: #ef4444; }
+.side.after .tag { background: rgba(22,163,74,0.1); color: #16a34a; }
+.side h3 { font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+.side.before h3 { color: #ccc; }
+
+.side ul { list-style: none; }
+.side ul li { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 15px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.side.after ul li { border-color: #f3f4f6; color: #333; }
+.side ul li .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+/* Day comparison */
+.day-section { max-width: 1000px; margin: 64px auto; padding: 0 24px; }
+.day-header { text-align: center; margin-bottom: 32px; }
+.day-header h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+.day-header p { font-size: 15px; color: #888; }
+
+.timeline-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.tl-col { }
+.tl-col .col-head { text-align: center; padding: 16px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.tl-col.old .col-head { background: #1a1a1a; color: #ef4444; }
+.tl-col.new .col-head { background: #16a34a; color: #fff; }
+
+.tl-item { padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; }
+.tl-col.old .tl-item { background: #151515; color: #888; border-bottom: 1px solid #222; }
+.tl-col.new .tl-item { background: #f0fdf4; color: #333; border-bottom: 1px solid #dcfce7; }
+.tl-item .time { font-size: 12px; font-weight: 700; color: #555; min-width: 52px; flex-shrink: 0; padding-top: 2px; }
+.tl-col.old .tl-item .time { color: #555; }
+.tl-col.new .tl-item .time { color: #16a34a; }
+.tl-item .desc { font-size: 14px; line-height: 1.5; }
+
+/* Transition arrow */
+.transition { text-align: center; padding: 48px 24px; }
+.transition .arrow { font-size: 48px; color: #ddd; }
+.transition h2 { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin: 12px 0 8px; }
+.transition p { font-size: 16px; color: #888; max-width: 500px; margin: 0 auto; }
+
+/* 3 steps */
+.steps-mini { max-width: 800px; margin: 48px auto; padding: 0 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.step-m { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 28px 20px; text-align: center; }
+.step-m .num { font-size: 36px; font-weight: 900; color: #16a34a; opacity: 0.3; }
+.step-m h4 { font-size: 15px; font-weight: 700; margin: 8px 0 4px; }
+.step-m p { font-size: 13px; color: #888; line-height: 1.5; }
+
+/* Mentor */
+.mentor { max-width: 600px; margin: 48px auto; padding: 0 24px; display: flex; align-items: center; gap: 20px; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 24px; }
+.mentor .circle { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #16a34a, #22c55e); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 22px; flex-shrink: 0; }
+.mentor .info h4 { font-size: 16px; font-weight: 700; }
+.mentor .info p { font-size: 13px; color: #888; line-height: 1.5; }
+.mentor .info .tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.mentor .info .tags span { background: #f3f4f6; font-size: 11px; padding: 3px 8px; border-radius: 4px; color: #666; }
+
+/* CTA */
+.final-cta { text-align: center; padding: 64px 24px 80px; background: linear-gradient(180deg, #fafafa 0%, #f0fdf4 100%); }
+.final-cta .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #16a34a; margin-bottom: 12px; }
+.final-cta h2 { font-size: 36px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
+.final-cta .when { font-size: 16px; color: #888; margin-bottom: 28px; }
+.final-cta a { display: inline-block; background: #16a34a; color: #fff; font-weight: 800; font-size: 18px; padding: 18px 48px; border-radius: 10px; text-decoration: none; transition: all 0.3s; }
+.final-cta a:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(22,163,74,0.25); }
+.final-cta .note { font-size: 13px; color: #aaa; margin-top: 14px; }
+
+/* Floating choice */
+.choice-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #eee; padding: 12px 24px; display: flex; justify-content: center; gap: 12px; z-index: 10; }
+.choice-bar a { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+.choice-bar .old { background: #f3f4f6; color: #999; }
+.choice-bar .new { background: #16a34a; color: #fff; }
+.choice-bar .new:hover { transform: scale(1.05); }
+
+@media (max-width: 768px) {
+  .split { grid-template-columns: 1fr; }
+  .timeline-split { grid-template-columns: 1fr; }
+  .steps-mini { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 28px; }
+  .mentor { flex-direction: column; text-align: center; }
+}
+</style>
+<script>function openPopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.add("open");document.body.style.overflow="hidden";}}function closePopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.remove("open");document.body.style.overflow="";}}</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','880791860253272');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=880791860253272&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="top-bar">
+<div class="logo">ACADEMIA DE PUBLICISTAS</div>
+<div class="badge">Clase gratuita · Lunes 8PM</div>
+</div>
+
+<div class="hero">
+<div class="chip">Elegí tu versión</div>
+<h1>Tu vida <span class="red">sin el sistema</span> vs. tu vida <span class="green">con él</span></h1>
+<p>Todo lo que cambia cuando aprendés a usar la IA para crear y vender productos digitales.</p>
+</div>
+
+<!-- Main split -->
+<div class="split-section">
+<div class="split">
+  <div class="side before">
+    <span class="tag">Sin el sistema</span>
+    <h3>Lo que hacés hoy</h3>
+    <ul>
+      <li><span class="icon">⏰</span> Alarma a las 6AM. Otra vez. Todos los días.</li>
+      <li><span class="icon">🚗</span> 1-2 horas de viaje. Ida y vuelta. Llueva o truene.</li>
+      <li><span class="icon">💰</span> Sueldo fijo. El mismo. Siempre el mismo.</li>
+      <li><span class="icon">📅</span> Vacaciones: 2 semanas si tenés suerte.</li>
+      <li><span class="icon">😰</span> Domingo a la noche: ansiedad por el lunes.</li>
+      <li><span class="icon">🔄</span> Repetir. 40 años. Hasta jubilarte.</li>
+    </ul>
+  </div>
+  <div class="side after">
+    <span class="tag">Con el sistema</span>
+    <h3>Lo que podés tener</h3>
+    <ul>
+      <li><span class="icon">☀️</span> Te despertás cuando querés. Sin alarma.</li>
+      <li><span class="icon">💻</span> Trabajás desde donde quieras. Laptop y wifi.</li>
+      <li><span class="icon">📈</span> Ingresos que crecen. Sin techo. Sin jefe.</li>
+      <li><span class="icon">✈️</span> Viajás cuando se te da la gana.</li>
+      <li><span class="icon">😌</span> Domingo a la noche: paz. Lunes es igual que viernes.</li>
+      <li><span class="icon">🤖</span> La IA trabaja por vos. 24/7. Sin cobrar.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- Day in the life -->
+<div class="day-section">
+<div class="day-header">
+  <h2>Un martes cualquiera</h2>
+  <p>Mismo día. Dos realidades completamente diferentes.</p>
+</div>
+<div class="timeline-split">
+  <div class="tl-col old">
+    <div class="col-head">Sin el sistema</div>
+    <div class="tl-item"><span class="time">6:00</span><span class="desc">Suena la alarma. Snooze. Suena otra vez.</span></div>
+    <div class="tl-item"><span class="time">7:30</span><span class="desc">Tráfico. Atasco. Llegarás tarde otra vez.</span></div>
+    <div class="tl-item"><span class="time">9:00</span><span class="desc">Oficina. Las mismas caras. Los mismos problemas.</span></div>
+    <div class="tl-item"><span class="time">13:00</span><span class="desc">Almuerzo rápido. En 30 minutos tenés reunión.</span></div>
+    <div class="tl-item"><span class="time">18:00</span><span class="desc">Salís. Cansado. Tráfico de vuelta.</span></div>
+    <div class="tl-item"><span class="time">20:00</span><span class="desc">Cena. Netflix. A la cama. Repetir mañana.</span></div>
+  </div>
+  <div class="tl-col new">
+    <div class="col-head">Con el sistema</div>
+    <div class="tl-item"><span class="time">8:30</span><span class="desc">Te despertás natural. Café tranquilo.</span></div>
+    <div class="tl-item"><span class="time">9:00</span><span class="desc">Revisás: 3 ventas entraron mientras dormías.</span></div>
+    <div class="tl-item"><span class="time">10:00</span><span class="desc">Le pedís a ChatGPT un nuevo producto. Listo en 2 horas.</span></div>
+    <div class="tl-item"><span class="time">12:00</span><span class="desc">Almuerzo largo. Sin apuro. Sin jefe.</span></div>
+    <div class="tl-item"><span class="time">15:00</span><span class="desc">Gym, paseo, lo que quieras. El sistema sigue vendiendo.</span></div>
+    <div class="tl-item"><span class="time">20:00</span><span class="desc">Cena. Revisás: 2 ventas más. Sonreís.</span></div>
+  </div>
+</div>
+</div>
+
+<!-- Transition -->
+<div class="transition">
+<div class="arrow">↓</div>
+<h2>¿Cómo se pasa de uno a otro?</h2>
+<p>Con un sistema de 3 pasos que cualquier persona — sin importar edad o experiencia — puede implementar usando inteligencia artificial.</p>
+</div>
+
+<!-- 3 steps -->
+<div class="steps-mini">
+<div class="step-m">
+  <div class="num">01</div>
+  <h4>Encontrá</h4>
+  <p>Un producto digital que la gente ya quiere comprar</p>
+</div>
+<div class="step-m">
+  <div class="num">02</div>
+  <h4>Crealo</h4>
+  <p>Con ChatGPT como tu empleado a tiempo completo</p>
+</div>
+<div class="step-m">
+  <div class="num">03</div>
+  <h4>Vendelo</h4>
+  <p>En automático, todos los días, 24/7</p>
+</div>
+</div>
+
+<!-- Mentor -->
+<div class="mentor">
+<img src="img/jesus.webp" alt="Jesús Tassarolo" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+<div class="info">
+  <h4>Jesús Tassarolo</h4>
+  <p>Fundador de la Practigram. +2,000 alumnos formados. $1M+ USD facturados con un solo producto.</p>
+  <div class="tags">
+    <span>Two Comma Club</span>
+    <span>+$100K/mes en ads</span>
+    <span>Infobae · Caras · Fortuna</span>
+  </div>
+</div>
+</div>
+
+<!-- Final CTA -->
+<div class="final-cta">
+<div class="eyebrow">Clase gratuita en vivo</div>
+<h2>Elegí tu versión del martes.</h2>
+<div class="when">Lunes 8PM · Zoom · 90 min · 1,000 lugares (quedan ~387)</div>
+<a href="#" onclick="event.preventDefault();openPopup();">QUIERO LA VERSIÓN NUEVA →</a>
+<div class="note">Gratis · Sin tarjeta · Solo tu email</div>
+</div>
+
+<!-- Fixed bottom bar -->
+<div class="choice-bar">
+<a href="#" class="old" onclick="event.preventDefault();">Seguir igual</a>
+<a href="#" class="new" onclick="event.preventDefault();openPopup();">Cambiar →</a>
+</div>
+
+<!-- POPUP REGISTRO -->
+<div class="popup-overlay" id="popupOverlay" onclick="if(event.target===this)closePopup()">
+<div class="popup-box">
+  <button class="popup-close" onclick="closePopup()">&times;</button>
+  <div class="popup-header">
+    <div class="popup-split-tags"><span class="tag-old">Antes</span><span class="tag-arrow">→</span><span class="tag-new">Después</span></div>
+    <h3>Elegiste cambiar. Ahora dejá tus datos.</h3>
+  </div>
+  <form class="popup-form" id="regForm">
+    <input type="text" id="f_nombre" name="name" placeholder="Tu nombre completo" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Tu mejor email" required autocomplete="email">
+    <div class="phone-row">
+      <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
+      <input type="tel" id="f_tel" name="tel" placeholder="WhatsApp" required autocomplete="tel-national">
+    </div>
+    <div class="radio-question">
+      <label class="q-label">¿Tenés computadora o PC para aplicar el proceso?</label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>No, no tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo conseguir una</span></label>
+    </div>
+    <button type="submit" class="popup-submit">QUIERO LA VERSIÓN NUEVA →</button>
+    <div class="popup-safe">Clase gratuita · Lunes 8PM · Zoom en vivo</div>
+  </form>
+</div>
+</div>
+
+<style>
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.popup-overlay.open{display:flex;animation:popFade .3s ease}
+@keyframes popFade{from{opacity:0}to{opacity:1}}
+.popup-box{background:#fff;border-radius:16px;max-width:440px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#1a1a1a;overflow:hidden}
+@keyframes popSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#999;cursor:pointer;line-height:1;z-index:2}
+.popup-header{padding:28px 24px 20px;border-bottom:1px solid #eee}
+.popup-split-tags{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tag-old{background:#fef2f2;color:#dc2626;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-decoration:line-through}
+.tag-arrow{color:#ccc;font-size:14px}
+.tag-new{background:#f0fdf4;color:#16a34a;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px}
+.popup-header h3{font-size:20px;font-weight:800;letter-spacing:-0.5px;line-height:1.3}
+.popup-form{display:flex;flex-direction:column;gap:10px;padding:20px 24px 24px}
+.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Inter',sans-serif;font-size:15px;padding:13px 16px;border:2px solid #eee;border-radius:10px;outline:none;transition:border-color .2s;background:#fff;color:#1a1a1a;-webkit-appearance:none;width:100%}
+.popup-form input::placeholder{color:#ccc}
+.popup-form input:focus,.popup-form select:focus{border-color:#16a34a}
+.phone-row{display:flex;gap:8px}
+.phone-code{flex:0 0 110px!important;width:110px!important;padding:13px 8px!important;font-size:14px!important;color:#1a1a1a!important}
+.phone-row input[type="tel"]{flex:1}
+.radio-question{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.q-label{font-size:13px;font-weight:600;color:#555}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:2px solid #eee;border-radius:10px;cursor:pointer;transition:all .2s;font-size:14px;color:#555}
+.radio-opt:hover{border-color:#16a34a}
+.radio-opt:has(input:checked){border-color:#16a34a;background:#f0fdf4}
+.radio-opt input{accent-color:#16a34a;width:16px;height:16px;flex-shrink:0}
+.popup-submit{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;padding:16px;border:none;border-radius:10px;background:#16a34a;color:#fff;cursor:pointer;transition:all .2s;width:100%;margin-top:4px}
+.popup-submit:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(22,163,74,0.2)}
+.popup-safe{text-align:center;font-size:12px;color:#bbb}
+@media(max-width:480px){.popup-form{padding:16px 20px 20px}.popup-header{padding:24px 20px 16px}}
+</style>
+
+<script>
+document.querySelectorAll('.final-cta a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openPopup();});});
+document.getElementById('regForm').addEventListener('submit',function(e){
+  e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
+  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si')?'gracias-calificado':'gracias-no-calificado';
+  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
+  window.location.href=dest+'?'+qs.toString();
+});
+</script>
+<script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
+
+<!-- Exit intent popup (componente unificado) -->
+<link rel="stylesheet" href="/css/exit-popup.css">
+<script src="/js/exit-popup.js"
+  data-variant="v7"
+  data-headline="Mirá el después"
+  data-sub="Tomó 90 días. <strong>La clase del lunes es el día 1.</strong> ¿De verdad te lo vas a perder?"
+  data-cta="QUIERO ESTAR ADENTRO"
+  data-decline="Salir igual"
+  data-icon="✨"
+  data-bg="#ffffff"
+  data-ink="#0a0a0a"
+  data-mute="#525252"
+  data-strong="#16a34a"
+  data-accent="#16a34a"
+  data-accent-ink="#fff"
+  data-accent-shadow="rgba(22,163,74,.35)"
+  data-font="'Inter', sans-serif"
+  data-min-time="15"
+  data-min-scroll="25"></script>
+<script src="/js/youtube-tag.js"></script>
+</body>
+</html>

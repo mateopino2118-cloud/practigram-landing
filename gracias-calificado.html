@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Gracias por Registrarte! - Practigram</title>
+<meta name="description" content="Tu plaza ha sido reservada exitosamente">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '880791860253272');
+fbq('track', 'PageView');
+fbq('track', 'CompleteRegistration');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=880791860253272&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- TikTok Pixel Code -->
+<script>
+!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+ttq.load('TIKTOK_880791860253272');
+ttq.page();
+ttq.track('CompleteRegistration');
+}(window, document, 'ttq');
+</script>
+<!-- End TikTok Pixel Code -->
+
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+.container { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; }
+
+/* Confetti animation */
+.confetti { position: fixed; top: 0; left: 0; right: 0; height: 100vh; pointer-events: none; overflow: hidden; z-index: 0; }
+.confetti span { position: absolute; width: 8px; height: 8px; border-radius: 2px; top: -10px; animation: fall 3s ease-in forwards; }
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Success badge */
+.success-badge { text-align: center; margin-bottom: 32px; position: relative; z-index: 1; }
+.check-circle { width: 80px; height: 80px; border-radius: 50%; background: #16a34a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; animation: scaleIn 0.5s ease; }
+@keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+.check-circle svg { width: 40px; height: 40px; }
+.success-badge h1 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+.success-badge h1 .name { color: #16a34a; }
+.success-badge p { font-size: 16px; color: #888; line-height: 1.6; }
+
+/* Info card */
+.info-card { background: #111; border: 1px solid #222; border-radius: 16px; padding: 28px 24px; margin-bottom: 20px; position: relative; z-index: 1; }
+.info-card .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #16a34a; margin-bottom: 16px; }
+.info-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+.info-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+.info-row:last-child { border: none; }
+.info-row .icon { width: 40px; height: 40px; border-radius: 10px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.info-row .text .t1 { font-size: 14px; font-weight: 600; }
+.info-row .text .t2 { font-size: 13px; color: #666; }
+
+/* Steps */
+.steps-card { background: #111; border: 1px solid #222; border-radius: 16px; padding: 28px 24px; margin-bottom: 20px; position: relative; z-index: 1; }
+.steps-card .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f59e0b; margin-bottom: 16px; }
+.step-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid #1a1a1a; }
+.step-item:last-child { border: none; }
+.step-item .num { width: 28px; height: 28px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #f59e0b; flex-shrink: 0; margin-top: 2px; }
+.step-item .desc { font-size: 14px; line-height: 1.5; color: #ccc; }
+.step-item .desc strong { color: #fff; }
+
+/* WhatsApp CTA */
+.wa-cta { background: #16a34a; border-radius: 16px; padding: 28px 24px; text-align: center; margin-bottom: 20px; position: relative; z-index: 1; }
+.wa-cta h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.wa-cta p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+.wa-cta a { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #16a34a; font-weight: 700; font-size: 16px; padding: 14px 32px; border-radius: 10px; text-decoration: none; transition: transform 0.2s; }
+.wa-cta a:hover { transform: scale(1.05); }
+
+/* Warning */
+.warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; font-size: 14px; color: #f59e0b; position: relative; z-index: 1; }
+
+/* Registration summary */
+.reg-summary { background: #111; border: 1px solid #222; border-radius: 12px; padding: 16px 20px; margin-top: 20px; position: relative; z-index: 1; }
+.reg-summary .label { font-size: 11px; font-weight: 600; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.reg-summary .item { font-size: 13px; color: #888; padding: 4px 0; }
+.reg-summary .item strong { color: #ccc; }
+
+@media (max-width: 480px) {
+  .success-badge h1 { font-size: 26px; }
+  .container { padding: 32px 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Confetti -->
+<div class="confetti" id="confetti"></div>
+
+<div class="container">
+
+<div class="success-badge">
+  <div class="check-circle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h1>¡Listo, <span class="name" id="displayName">ahí</span>!</h1>
+  <p>Tu lugar está casi listo. Solo te falta <strong>un paso</strong> para recibir tu acceso completo.</p>
+</div>
+
+<div class="wa-cta" style="background:#25D366;">
+  <h3 style="font-size:22px;">Solo falta 1 paso</h3>
+  <p style="font-size:16px;margin-bottom:20px;">Envianos un mensaje por WhatsApp para recibir tu acceso, el link de la clase y toda la información.</p>
+  <a href="https://wa.me/5493518166158" id="waLink" target="_blank">💬 Enviar mensaje por WhatsApp →</a>
+</div>
+
+<div class="info-card">
+  <div class="label">¿Por qué por WhatsApp?</div>
+  <h2>Así te compartimos todo al instante</h2>
+  <div class="info-row">
+    <div class="icon">🔗</div>
+    <div class="text"><div class="t1">Recibí el link de la clase</div><div class="t2">Te lo mandamos apenas nos escribas</div></div>
+  </div>
+  <div class="info-row">
+    <div class="icon">📅</div>
+    <div class="text"><div class="t1">Fecha, hora y detalles</div><div class="t2">Todo te llega directo a tu WhatsApp</div></div>
+  </div>
+  <div class="info-row">
+    <div class="icon">🔔</div>
+    <div class="text"><div class="t1">Recordatorio antes de la clase</div><div class="t2">Te avisamos para que no te la pierdas</div></div>
+  </div>
+  <div class="info-row">
+    <div class="icon">❓</div>
+    <div class="text"><div class="t1">Preguntá lo que necesites</div><div class="t2">Te respondemos por ahí mismo</div></div>
+  </div>
+</div>
+
+<div class="steps-card">
+  <div class="label">Así de fácil</div>
+  <div class="step-item">
+    <span class="num">1</span>
+    <div class="desc"><strong>Tocá el botón de WhatsApp</strong> — Se abre la conversación con un mensaje listo. Solo dale enviar.</div>
+  </div>
+  <div class="step-item">
+    <span class="num">2</span>
+    <div class="desc"><strong>Recibí tu acceso</strong> — Te compartimos el link de la clase, los horarios y todo lo que necesitás.</div>
+  </div>
+  <div class="step-item">
+    <span class="num">3</span>
+    <div class="desc"><strong>Hacé todas tus preguntas</strong> — ¿Dudas sobre la clase? ¿Sobre el sistema? Te contestamos por ahí.</div>
+  </div>
+</div>
+
+<div class="warning">
+⚠️ <strong>Importante:</strong> Sin este paso no vas a recibir el link de la clase ni los recordatorios. Mandanos un WhatsApp ahora así no se te pasa.
+</div>
+
+<div class="testimonios" style="margin-top:28px;position:relative;z-index:1;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#16a34a;margin-bottom:16px;text-align:center;">Lo que dicen nuestros alumnos</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+    <img src="img/529316570_698724386529081_4357764213251925959_n-1.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-160621.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-160803.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-160906.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-3.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-154119.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-161548.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-162425.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-4.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-162550.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-24-162719.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-8.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-9.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-10.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Imagen-de-WhatsApp-2025-09-30-a-las-14.42.39_caf8b458.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-5-1024x662.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/download-7-1024x584.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-30-141311.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+    <img src="img/Captura-de-pantalla-2025-09-16-134036.webp" alt="Testimonio" loading="lazy" decoding="async" style="width:100%;border-radius:10px;border:1px solid #222;">
+  </div>
+</div>
+
+<div class="reg-summary">
+  <div class="label">Tu registro</div>
+  <div class="item"><strong>Nombre:</strong> <span id="sumName">—</span></div>
+  <div class="item"><strong>Email:</strong> <span id="sumEmail">—</span></div>
+  <div class="item"><strong>Teléfono:</strong> <span id="sumTel">—</span></div>
+  <div class="item"><strong>País:</strong> <span id="sumPais">—</span></div>
+</div>
+
+</div>
+
+<script>
+// Parse URL params
+const params = new URLSearchParams(window.location.search);
+const nombre = params.get('nombre_lead') || '';
+const email = params.get('email_lead') || '';
+const tel = params.get('tel_lead') || '';
+const pais = params.get('pais_lead') || '';
+const abMatch = document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);
+const abVariant = abMatch ? abMatch[1] : '';
+
+// Track conversion + qualified
+if (abVariant) {
+  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'conversion',variant:abVariant}),keepalive:true});
+  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'qualified',variant:abVariant}),keepalive:true});
+  // Timing A/B test (mobile): si el visitante fue asignado a un bucket en
+  // la landing, atribuimos su conversión a ese bucket para medir el lift de
+  // conversión global por timing del exit popup.
+  try {
+    var __apBucket = sessionStorage.getItem('apTimingBucket');
+    if (__apBucket) {
+      fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'conversion_b'+__apBucket,variant:abVariant}),keepalive:true});
+      fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'qualified_b'+__apBucket,variant:abVariant}),keepalive:true});
+    }
+  } catch (e) {}
+}
+
+// Populate
+if (nombre) {
+  const firstName = nombre.split(' ')[0];
+  document.getElementById('displayName').textContent = firstName;
+}
+document.getElementById('sumName').textContent = nombre || '—';
+document.getElementById('sumEmail').textContent = email || '—';
+document.getElementById('sumTel').textContent = tel || '—';
+document.getElementById('sumPais').textContent = pais || '—';
+
+// WhatsApp dynamic link — includes all lead data
+var waMsg = 'Hola! Soy ' + (nombre || 'nuevo registro') + '. Me acabo de registrar para la clase en vivo. Quiero recibir mi acceso.'
+  + '\n\n--- Datos de registro ---'
+  + '\nNombre: ' + (nombre || '—')
+  + '\nEmail: ' + (email || '—')
+  + '\nTel: ' + (tel || '—')
+  + '\nPaís: ' + (pais || '—');
+document.getElementById('waLink').href = 'https://wa.me/5493518166158?text=' + encodeURIComponent(waMsg);
+
+// Track WhatsApp click
+document.getElementById('waLink').addEventListener('click', function() {
+  if (abVariant) {
+    fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'whatsapp',variant:abVariant}),keepalive:true});
+  }
+});
+
+// Confetti
+const colors = ['#16a34a','#f59e0b','#ef4444','#3b82f6','#8b5cf6','#ec4899'];
+const container = document.getElementById('confetti');
+for (let i = 0; i < 20; i++) {
+  const span = document.createElement('span');
+  span.style.left = Math.random() * 100 + '%';
+  span.style.background = colors[Math.floor(Math.random() * colors.length)];
+  span.style.animationDelay = Math.random() * 2 + 's';
+  span.style.animationDuration = (2 + Math.random() * 2) + 's';
+  container.appendChild(span);
+}
+</script>
+
+<!-- Google Ads conversion (YouTube traffic only) — fires only when ab_source=youtube -->
+<script src="/js/youtube-tag.js" data-conversion="9O6CCKzK3fsbEPPt1Ps-"></script>
+
+</body>
+</html>

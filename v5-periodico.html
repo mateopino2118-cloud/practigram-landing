@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V5 — Formato Periódico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #faf8f3; color: #1a1a1a; font-family: 'Source Serif 4', Georgia, serif; }
+
+/* Masthead */
+.masthead { text-align: center; padding: 20px 24px 0; border-bottom: 2px solid #1a1a1a; }
+.masthead .date { font-family: 'Inter', sans-serif; font-size: 11px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+.masthead .name { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; letter-spacing: -1px; margin: 4px 0; }
+.masthead .tagline { font-family: 'Inter', sans-serif; font-size: 11px; color: #666; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+.masthead .rule { display: flex; align-items: center; gap: 12px; }
+.masthead .rule::before, .masthead .rule::after { content: ''; flex: 1; height: 1px; background: #ccc; }
+.masthead .edition { font-family: 'Inter', sans-serif; font-size: 10px; color: #999; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+
+/* Breaking bar */
+.breaking { background: #b91c1c; color: #fff; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; padding: 8px 24px; display: flex; align-items: center; gap: 12px; }
+.breaking .badge { background: #fff; color: #b91c1c; padding: 2px 8px; border-radius: 2px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; }
+
+/* Article */
+.article { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+.article .section-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: #b91c1c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.article h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; line-height: 1.15; margin-bottom: 16px; letter-spacing: -1px; }
+.article .deck { font-size: 20px; color: #555; line-height: 1.5; margin-bottom: 24px; font-style: italic; }
+.article .byline { font-family: 'Inter', sans-serif; font-size: 13px; color: #888; margin-bottom: 8px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+.article .byline .author { font-weight: 600; color: #333; }
+.article .share { display: flex; gap: 8px; }
+.article .share span { width: 28px; height: 28px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
+
+/* Body text */
+.article p { font-size: 18px; line-height: 1.8; margin-bottom: 20px; }
+.article p.lead { font-size: 20px; }
+.article p.lead::first-letter { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 900; float: left; line-height: 0.8; margin: 4px 12px 0 0; color: #b91c1c; }
+
+/* Pullquote */
+.pullquote { border-left: 4px solid #b91c1c; padding: 20px 24px; margin: 32px 0; background: #fff; }
+.pullquote p { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; line-height: 1.4; margin-bottom: 8px; color: #333; }
+.pullquote cite { font-family: 'Inter', sans-serif; font-size: 13px; color: #888; font-style: normal; }
+
+/* Data box */
+.data-box { background: #fff; border: 1px solid #ddd; padding: 24px; margin: 32px 0; }
+.data-box .title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #b91c1c; margin-bottom: 16px; }
+.data-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.data-row:last-child { border: none; }
+.data-row .label { font-family: 'Inter', sans-serif; font-size: 14px; color: #666; }
+.data-row .value { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; }
+
+/* Subhead */
+.article h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin: 40px 0 16px; }
+
+/* Image placeholder */
+.fig { margin: 32px 0; }
+.fig .img { background: linear-gradient(135deg, #e8e4db 0%, #f0ece3 100%); height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.fig .img .icon { font-size: 48px; margin-bottom: 8px; }
+.fig .img .label { font-family: 'Inter', sans-serif; font-size: 13px; color: #999; }
+.fig figcaption { font-family: 'Inter', sans-serif; font-size: 12px; color: #888; margin-top: 8px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+
+/* CTA embedded */
+.cta-embed { background: #1a1a1a; color: #fff; padding: 32px; margin: 40px 0; text-align: center; position: relative; }
+.cta-embed::before { content: 'REGISTRO ABIERTO'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #b91c1c; color: #fff; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; }
+.cta-embed h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 4px; }
+.cta-embed .details { font-family: 'Inter', sans-serif; font-size: 14px; color: #999; margin-bottom: 20px; }
+.cta-embed a { display: inline-block; background: #b91c1c; color: #fff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px; padding: 14px 36px; text-decoration: none; transition: background 0.3s; }
+.cta-embed a:hover { background: #991b1b; }
+.cta-embed .fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #666; margin-top: 12px; }
+
+/* Related */
+.related { border-top: 2px solid #1a1a1a; padding-top: 24px; margin-top: 48px; }
+.related .label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.related-item .title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+.related-item .meta { font-family: 'Inter', sans-serif; font-size: 11px; color: #999; }
+
+@media (max-width: 768px) {
+  .article h1 { font-size: 30px; }
+  .related-grid { grid-template-columns: 1fr; }
+  .masthead .name { font-size: 28px; }
+}
+</style>
+<script>function openPopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.add("open");document.body.style.overflow="hidden";}}function closePopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.remove("open");document.body.style.overflow="";}}</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','880791860253272');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=880791860253272&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="masthead">
+<div class="date">27 de Marzo, 2026</div>
+<div class="name">El Publicista Digital</div>
+<div class="tagline">Periodismo sobre la nueva economía digital</div>
+<div class="rule"><span class="edition">Edición Especial · Inteligencia Artificial</span></div>
+</div>
+
+<div class="breaking">
+<span class="badge">Última hora</span>
+Más de 2,000 personas sin experiencia en marketing ya generan ingresos con productos digitales creados por IA
+</div>
+
+<div class="article">
+
+<div class="section-label">Investigación · Economía Digital</div>
+
+<h1>Sin saber de marketing, miles de latinoamericanos crean productos digitales con ChatGPT y viven de eso</h1>
+
+<div class="deck">Un sistema de 3 pasos desarrollado en Argentina está permitiendo que amas de casa, jubilados y empleados sin conocimientos técnicos generen ingresos vendiendo productos hechos enteramente con inteligencia artificial.</div>
+
+<div class="byline">
+<div><span class="author">Redacción Economía Digital</span> · 6 min de lectura</div>
+<div class="share"><span>𝕏</span><span>in</span><span>✉</span></div>
+</div>
+
+<p class="lead">Cuando María González, de 58 años, le contó a su familia que iba a vender productos digitales por internet, la reacción fue predecible: "¿Vos? ¿Con una computadora?" Tres meses después, María factura más de lo que ganaba en su trabajo anterior. Su herramienta principal: ChatGPT.</p>
+
+<p>El caso de González no es aislado. Es parte de un fenómeno que está creciendo silenciosamente en América Latina, impulsado por una combinación que no existía hace dos años: inteligencia artificial accesible + un método sistematizado para convertirla en ingresos.</p>
+
+<div class="pullquote">
+<p>"La IA eliminó las tres barreras históricas: diseño, programación y marketing. Hoy cualquier persona con una idea puede tener un producto digital listo para vender en horas, no meses."</p>
+<cite>— Jesús Tassarolo, fundador de la Practigram</cite>
+</div>
+
+<p>Tassarolo, un especialista en publicidad digital que ha invertido más de $100,000 dólares mensuales en campañas y ganado el reconocimiento "Two Comma Club" por facturar más de un millón de dólares con un solo producto, lleva más de una década en el sector. Pero asegura que lo que está pasando ahora "no tiene precedentes".</p>
+
+<h2>Los números detrás del fenómeno</h2>
+
+<div class="data-box">
+<div class="title">Practigram — Datos Clave</div>
+<div class="data-row"><span class="label">Alumnos formados</span><span class="value">+2,000</span></div>
+<div class="data-row"><span class="label">Países con alumnos activos</span><span class="value">18</span></div>
+<div class="data-row"><span class="label">Facturación acumulada (fundador)</span><span class="value">$1M+ USD</span></div>
+<div class="data-row"><span class="label">Inversión mensual en publicidad</span><span class="value">$100K+ USD</span></div>
+<div class="data-row"><span class="label">Tiempo promedio a primera venta (nuevos alumnos)</span><span class="value">3-7 días</span></div>
+<div class="data-row"><span class="label">% de alumnos sin experiencia previa</span><span class="value">~78%</span></div>
+</div>
+
+<p>"Lo que más me sorprende no son los alumnos que ya sabían de marketing", explica Tassarolo desde su oficina. "Son los que llegan diciendo que no saben prender la computadora. Esos son los que más rápido están teniendo resultados, porque no tienen vicios. Siguen el sistema al pie de la letra."</p>
+
+<h2>El sistema de 3 pasos</h2>
+
+<p>La metodología que propone la Academia se reduce a tres etapas que, según sus creadores, cualquier persona puede ejecutar:</p>
+
+<p><strong>Primero, encontrar.</strong> Identificar un producto digital que el mercado ya está buscando comprar. "No se trata de inventar algo genial", aclara Tassarolo. "Se trata de descubrir qué necesita la gente y dárselo."</p>
+
+<p><strong>Segundo, crear con IA.</strong> Usar ChatGPT y otras herramientas de inteligencia artificial para diseñar, escribir y producir el producto. "La IA es tu empleado a tiempo completo. No cobra, no descansa, no se queja. Vos dirigís, ella ejecuta."</p>
+
+<p><strong>Tercero, vender en automático.</strong> Montar un sistema de ventas que funcione las 24 horas. "No es un trabajo. Es un activo que genera dinero mientras dormís."</p>
+
+<div class="fig">
+<div class="img">
+  <div class="icon">📊</div>
+  <div class="label">Resultados reportados por alumnos de la Academia</div>
+</div>
+<figcaption>Capturas de pantalla de ventas compartidas por alumnos en el grupo privado de la comunidad. La Academia reporta más de 22 casos documentados con ingresos verificables.</figcaption>
+</div>
+
+<h2>El debate: ¿es para cualquiera?</h2>
+
+<p>Los escépticos no faltan. Pero los datos son difíciles de ignorar: la Academia ha formado alumnos en 18 países, con perfiles que van desde estudiantes universitarios hasta jubilados de más de 60 años.</p>
+
+<p>"Yo no digo que sea fácil", matiza Tassarolo. "Digo que es posible. Y que hoy, con la IA, es más posible que nunca en la historia."</p>
+
+<div class="pullquote">
+<p>"No necesitás renunciar a tu trabajo. No necesitás invertir miles de dólares. Necesitás 1 hora por día y el sistema correcto."</p>
+<cite>— Jesús Tassarolo</cite>
+</div>
+
+<h2>Clase gratuita abierta al público</h2>
+
+<p>En un movimiento poco habitual en la industria, Tassarolo anunció que este lunes a las 8PM dará una clase gratuita por Zoom donde revelará el sistema completo de 3 pasos. La sala tiene capacidad para 1,000 personas y, según la organización, más de 600 lugares ya fueron reservados.</p>
+
+<p>"Quiero que la gente vea con sus propios ojos cómo funciona esto antes de decidir si es para ellos", explica. "90 minutos. Sin costo. Sin compromiso."</p>
+
+<div class="cta-embed">
+<h3>Clase Gratuita — Lunes 8PM por Zoom</h3>
+<div class="details">Capacidad: 1,000 personas · Lugares disponibles: ~387 · No se graba</div>
+<a href="#" onclick="event.preventDefault();openPopup();">REGISTRARSE AHORA →</a>
+<div class="fine">Sin tarjeta de crédito · Solo se requiere email · Registro en 10 segundos</div>
+</div>
+
+<div class="related">
+<div class="label">Artículos Relacionados</div>
+<div class="related-grid">
+  <div class="related-item">
+    <div class="title">ChatGPT y el futuro del trabajo: lo que dicen los expertos</div>
+    <div class="meta">Tecnología · 8 min</div>
+  </div>
+  <div class="related-item">
+    <div class="title">Productos digitales: el mercado que creció 340% en Latinoamérica</div>
+    <div class="meta">Economía · 5 min</div>
+  </div>
+  <div class="related-item">
+    <div class="title">De empleada doméstica a emprendedora digital: la historia de Lucía</div>
+    <div class="meta">Perfiles · 6 min</div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<!-- POPUP REGISTRO -->
+<div class="popup-overlay" id="popupOverlay" onclick="if(event.target===this)closePopup()">
+<div class="popup-box">
+  <button class="popup-close" onclick="closePopup()">&times;</button>
+  <div class="popup-header">
+    <div class="popup-badge">REGISTRO ABIERTO</div>
+    <h3>Clase Gratuita: El sistema de 3 pasos para crear y vender productos digitales con IA</h3>
+    <p class="popup-meta">Lunes 8PM · Zoom en vivo · Cupo limitado</p>
+  </div>
+  <form class="popup-form" id="regForm">
+    <input type="text" id="f_nombre" name="name" placeholder="Nombre y apellido" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Correo electrónico" required autocomplete="email">
+    <div class="phone-row">
+      <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
+      <input type="tel" id="f_tel" name="tel" placeholder="Teléfono" required autocomplete="tel-national">
+    </div>
+    <div class="radio-question">
+      <label class="q-label">¿Tenés computadora o PC para aplicar el proceso?</label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>No, no tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo conseguir una</span></label>
+    </div>
+    <button type="submit" class="popup-submit">REGISTRARSE →</button>
+    <div class="popup-safe">Sin costo · Cupo limitado a 1,000 personas</div>
+  </form>
+</div>
+</div>
+
+<style>
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.popup-overlay.open{display:flex;animation:popFade .3s ease}
+@keyframes popFade{from{opacity:0}to{opacity:1}}
+.popup-box{background:#faf8f3;border:1px solid #ddd;border-radius:4px;max-width:460px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#1a1a1a;overflow:hidden}
+@keyframes popSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#999;cursor:pointer;line-height:1;z-index:2}
+.popup-header{padding:28px 24px 20px;border-bottom:2px solid #1a1a1a}
+.popup-badge{display:inline-block;background:#b91c1c;color:#fff;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 10px;margin-bottom:12px;text-transform:uppercase}
+.popup-header h3{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;line-height:1.3}
+.popup-meta{font-family:'Inter',sans-serif;font-size:13px;color:#888;margin-top:8px}
+.popup-form{display:flex;flex-direction:column;gap:10px;padding:20px 24px 24px}
+.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Source Serif 4',Georgia,serif;font-size:15px;padding:12px 14px;border:1px solid #ccc;border-radius:2px;outline:none;transition:border-color .2s;background:#fff;color:#1a1a1a;-webkit-appearance:none;width:100%}
+.popup-form input::placeholder{color:#bbb}
+.popup-form input:focus,.popup-form select:focus{border-color:#b91c1c}
+.phone-row{display:flex;gap:8px}
+.phone-code{flex:0 0 110px!important;width:110px!important;padding:12px 8px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;color:#1a1a1a!important}
+.phone-row input[type="tel"]{flex:1}
+.radio-question{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.q-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#555}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #ccc;border-radius:2px;cursor:pointer;transition:all .2s;font-family:'Source Serif 4',serif;font-size:14px;color:#555}
+.radio-opt:hover{border-color:#b91c1c}
+.radio-opt:has(input:checked){border-color:#b91c1c;background:#fef2f2}
+.radio-opt input{accent-color:#b91c1c;width:16px;height:16px;flex-shrink:0}
+.popup-submit{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px;border:none;background:#b91c1c;color:#fff;cursor:pointer;transition:background .2s;width:100%;margin-top:4px}
+.popup-submit:hover{background:#991b1b}
+.popup-safe{text-align:center;font-family:'Inter',sans-serif;font-size:11px;color:#aaa}
+@media(max-width:480px){.popup-form{padding:16px 20px 20px}.popup-header{padding:24px 20px 16px}.popup-header h3{font-size:19px}}
+</style>
+
+<script>
+document.querySelectorAll('.cta-embed a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openPopup();});});
+document.getElementById('regForm').addEventListener('submit',function(e){
+  e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
+  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si')?'gracias-calificado':'gracias-no-calificado';
+  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
+  window.location.href=dest+'?'+qs.toString();
+});
+</script>
+<script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
+
+<!-- Exit intent popup (componente unificado) -->
+<link rel="stylesheet" href="/css/exit-popup.css">
+<script src="/js/exit-popup.js"
+  data-variant="v5"
+  data-headline="Última edición"
+  data-sub="La nota completa incluye <strong>cómo entrar a la clase del lunes</strong>. Es gratis. No te vayas sin leerla."
+  data-cta="LEER LA NOTA COMPLETA"
+  data-decline="Salir igual"
+  data-icon="📰"
+  data-bg="#faf8f3"
+  data-ink="#1a1a1a"
+  data-mute="#5c5851"
+  data-strong="#b91c1c"
+  data-accent="#b91c1c"
+  data-accent-ink="#fff"
+  data-accent-shadow="rgba(185,28,28,.3)"
+  data-font="'Source Serif 4', Georgia, serif"
+  data-headline-font="'Source Serif 4', Georgia, serif"
+  data-radius="4px"
+  data-cta-radius="2px"
+  data-min-time="15"
+  data-min-scroll="25"></script>
+<script src="/js/youtube-tag.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V4 — Conversacional / Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f5f5f0; color: #1a1a1a; font-family: 'Inter', sans-serif; }
+
+/* Header */
+.header { background: #fff; border-bottom: 1px solid #e5e5e0; padding: 16px 24px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+.header-info .name { font-size: 14px; font-weight: 600; }
+.header-info .status { font-size: 12px; color: #22c55e; display: flex; align-items: center; gap: 4px; }
+.header-info .status::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+
+/* Chat container */
+.chat { max-width: 600px; margin: 0 auto; padding: 24px 16px 120px; }
+
+/* Messages */
+.msg { max-width: 85%; margin-bottom: 8px; animation: fadeUp 0.4s ease-out both; }
+.msg:nth-child(1) { animation-delay: 0.1s; }
+.msg:nth-child(2) { animation-delay: 0.5s; }
+.msg:nth-child(3) { animation-delay: 1s; }
+.msg:nth-child(4) { animation-delay: 1.5s; }
+.msg:nth-child(5) { animation-delay: 2s; }
+.msg:nth-child(6) { animation-delay: 2.3s; }
+.msg:nth-child(7) { animation-delay: 2.8s; }
+.msg:nth-child(8) { animation-delay: 3.2s; }
+.msg:nth-child(9) { animation-delay: 3.6s; }
+.msg:nth-child(10) { animation-delay: 4s; }
+.msg:nth-child(11) { animation-delay: 4.3s; }
+.msg:nth-child(12) { animation-delay: 4.7s; }
+.msg:nth-child(13) { animation-delay: 5.1s; }
+.msg:nth-child(14) { animation-delay: 5.4s; }
+.msg:nth-child(15) { animation-delay: 5.8s; }
+.msg:nth-child(16) { animation-delay: 6.2s; }
+.msg:nth-child(17) { animation-delay: 6.5s; }
+.msg:nth-child(18) { animation-delay: 6.9s; }
+.msg:nth-child(19) { animation-delay: 7.3s; }
+.msg:nth-child(20) { animation-delay: 7.6s; }
+.msg:nth-child(n+21) { animation-delay: 8s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg.sent { margin-left: auto; }
+.msg .bubble { padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.5; }
+.msg.received .bubble { background: #fff; border: 1px solid #e5e5e0; border-bottom-left-radius: 4px; }
+.msg.sent .bubble { background: #1a1a1a; color: #fff; border-bottom-right-radius: 4px; }
+.msg .time { font-size: 11px; color: #999; margin-top: 2px; padding: 0 8px; }
+.msg.sent .time { text-align: right; }
+
+/* Spacer */
+.spacer { height: 24px; }
+.big-spacer { height: 40px; display: flex; align-items: center; justify-content: center; }
+.big-spacer .date { background: #e5e5e0; color: #888; font-size: 11px; padding: 4px 12px; border-radius: 10px; }
+
+/* Voice message */
+.voice { display: flex; align-items: center; gap: 10px; padding: 12px 16px; }
+.voice .play-btn { width: 32px; height: 32px; border-radius: 50%; background: #22c55e; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.voice .play-btn::after { content: '▶'; color: #fff; font-size: 12px; margin-left: 2px; }
+.voice .wave { flex: 1; height: 24px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24'%3E%3Cpath d='M0 12h4v-4h4v8h4v-12h4v16h4v-10h4v6h4v-8h4v12h4v-16h4v10h4v-4h4v8h4v-12h4v16h4v-6h4v-4h4v10h4v-14h4v8h4v-4h4v12h4v-8h4v-4h4v10h4v-16h4v12h4v-6h4v4' fill='none' stroke='%23999' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat center; background-size: contain; }
+.voice .dur { font-size: 12px; color: #999; flex-shrink: 0; }
+
+/* Emoji reaction */
+.reaction { display: inline-block; background: #fff; border: 1px solid #e5e5e0; border-radius: 12px; padding: 2px 8px; font-size: 16px; margin-top: -4px; margin-bottom: 8px; position: relative; top: -4px; }
+.msg.sent + .reaction { margin-left: auto; display: block; width: fit-content; }
+
+/* Image placeholder */
+.img-msg { background: #e5e5e0; border-radius: 12px; padding: 4px; margin: 4px 0; }
+.img-msg .placeholder { background: linear-gradient(135deg, #ddd 0%, #eee 50%, #ddd 100%); border-radius: 8px; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #999; }
+
+/* List in bubble */
+.bubble ul { list-style: none; margin: 8px 0 0; }
+.bubble ul li { padding: 6px 0; border-top: 1px solid rgba(0,0,0,0.06); font-size: 14px; }
+.bubble ul li:first-child { border: none; }
+.msg.received .bubble ul li { border-color: rgba(0,0,0,0.06); }
+.msg.sent .bubble ul li { border-color: rgba(255,255,255,0.1); }
+
+/* CTA area */
+.cta-float { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e0; padding: 16px 24px; text-align: center; z-index: 10; }
+.cta-float .inner { max-width: 600px; margin: 0 auto; display: flex; gap: 12px; align-items: center; }
+.cta-float .text { flex: 1; text-align: left; }
+.cta-float .text .t1 { font-size: 14px; font-weight: 600; }
+.cta-float .text .t2 { font-size: 12px; color: #888; }
+.cta-float a { background: #22c55e; color: #fff; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 24px; text-decoration: none; flex-shrink: 0; transition: transform 0.2s; }
+.cta-float a:hover { transform: scale(1.05); }
+
+@media (max-width: 768px) {
+  .msg { max-width: 90%; }
+}
+</style>
+<script>function openPopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.add("open");document.body.style.overflow="hidden";}}function closePopup(){var p=document.getElementById("popupOverlay");if(p){p.classList.remove("open");document.body.style.overflow="";}}</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','880791860253272');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=880791860253272&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="header">
+<img src="img/jesus.webp" alt="JT" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+<div class="header-info">
+  <div class="name">Jesús Tassarolo</div>
+  <div class="status">En línea</div>
+</div>
+</div>
+
+<div class="chat">
+
+<div class="big-spacer"><span class="date">Hoy</span></div>
+
+<div class="msg received">
+<div class="bubble">Ey, tengo que contarte algo 👇</div>
+<div class="time">20:01</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">¿Sabés qué es lo más loco que me pasó este año?</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Una alumna mía — 58 años, cero experiencia en tecnología — me escribió diciéndome que había creado un producto digital con ChatGPT y lo vendió en 4 días.</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">CUATRO DÍAS. 🤯</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg received">
+<div class="bubble">Y no es la única. Tengo más de 2,000 alumnos en toda Latinoamérica haciendo esto.</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Gente que no sabía qué era un "producto digital" hace 3 meses.</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg sent">
+<div class="bubble">¿Pero cómo? Si yo no sé nada de marketing ni diseño ni nada de eso 😅</div>
+<div class="time">20:03</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">ESA es la cuestión. 👆</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Antes necesitabas:
+<ul>
+<li>❌ Saber diseñar</li>
+<li>❌ Saber programar</li>
+<li>❌ Saber de marketing</li>
+<li>❌ Tener plata para invertir</li>
+</ul>
+</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Ahora la IA hace todo eso por vos. Lo único que necesitás es saber CÓMO pedírselo. El sistema correcto. Los 3 pasos en el orden correcto.</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg sent">
+<div class="bubble">Ok, me interesa. ¿Dónde aprendo eso?</div>
+<div class="time">20:05</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">El lunes a las 8PM doy una clase GRATUITA en vivo por Zoom donde enseño exactamente esto:</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">
+<ul>
+<li>✅ <strong>Paso 1:</strong> Cómo encontrar un producto que la gente ya quiere comprar</li>
+<li>✅ <strong>Paso 2:</strong> Cómo crearlo con ChatGPT (aunque nunca lo hayas abierto)</li>
+<li>✅ <strong>Paso 3:</strong> Cómo venderlo en automático, todos los días</li>
+</ul>
+</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Son 90 minutos. Sin verso. Te muestro el sistema completo.</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg sent">
+<div class="bubble">¿Y cuánto sale?</div>
+<div class="time">20:06</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">$0. Gratis. Nada. Cero. 🆓</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Solo hay un tema: la sala de Zoom aguanta 1,000 personas máximo. Y ya se llenaron más de 600 lugares.</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg sent">
+<div class="bubble">¿Y quién sos vos? Sin ofender jaja, pero hay mucho chanta por ahí</div>
+<div class="time">20:07</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Buena pregunta. 😄</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Soy Jesús Tassarolo. Fundé la Practigram, la primera academia de publicidad digital en América Latina.
+
+Algunos datos rápidos:
+<ul>
+<li>📊 +2,000 alumnos formados</li>
+<li>🏆 Two Comma Club ($1M+ USD facturado con 1 producto)</li>
+<li>💰 +$100K USD/mes invertidos en publicidad</li>
+<li>📰 Publicado en Infobae, Caras, Fortuna</li>
+</ul>
+</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Pero más importante que mis números: mirá los resultados de mis alumnos. Son gente NORMAL. Eso es lo que importa.</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="msg sent">
+<div class="bubble">Ok, me convenciste. ¿Cómo me anoto?</div>
+<div class="time">20:09</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Hacé click abajo 👇 y dejá tu email. Te mando el link de Zoom directo a tu casilla.</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Sin tarjeta de crédito. Sin compromiso. Sin llamadas. Solo el link.</div>
+</div>
+
+<div class="msg received">
+<div class="bubble">Pero hacelo ahora porque la última vez se llenó 6 horas antes. Y no exagero. 😬</div>
+</div>
+
+<div style="height: 80px;"></div>
+</div>
+
+<div class="cta-float">
+<div class="inner">
+  <div class="text">
+    <div class="t1">Clase en vivo · Lunes 8PM</div>
+    <div class="t2">~387 lugares disponibles de 1,000</div>
+  </div>
+  <a href="#" onclick="event.preventDefault();openPopup();">Quiero mi lugar →</a>
+</div>
+</div>
+
+<!-- POPUP REGISTRO -->
+<div class="popup-overlay" id="popupOverlay" onclick="if(event.target===this)closePopup()">
+<div class="popup-box">
+  <button class="popup-close" onclick="closePopup()">&times;</button>
+  <div class="popup-chat-header">
+    <img src="img/jesus.webp" alt="JT" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+    <div><div class="popup-name">Jesús Tassarolo</div><div class="popup-typing">Escribiendo...</div></div>
+  </div>
+  <div class="popup-bubble">Dale, completá esto y te mando el link de Zoom al toque 👇</div>
+  <form class="popup-form" id="regForm">
+    <input type="text" id="f_nombre" name="name" placeholder="¿Cómo te llamás?" required autocomplete="name">
+    <input type="email" id="f_email" name="email" placeholder="Tu mejor email" required autocomplete="email">
+    <div class="phone-row">
+      <select id="f_code" class="phone-code"><option value="+54" data-pais="Argentina">🇦🇷 +54</option><option value="+52" data-pais="México">🇲🇽 +52</option><option value="+57" data-pais="Colombia">🇨🇴 +57</option><option value="+56" data-pais="Chile">🇨🇱 +56</option><option value="+51" data-pais="Perú">🇵🇪 +51</option><option value="+593" data-pais="Ecuador">🇪🇨 +593</option><option value="+598" data-pais="Uruguay">🇺🇾 +598</option><option value="+591" data-pais="Bolivia">🇧🇴 +591</option><option value="+595" data-pais="Paraguay">🇵🇾 +595</option><option value="+506" data-pais="Costa Rica">🇨🇷 +506</option><option value="+507" data-pais="Panamá">🇵🇦 +507</option><option value="+503" data-pais="El Salvador">🇸🇻 +503</option><option value="+502" data-pais="Guatemala">🇬🇹 +502</option><option value="+504" data-pais="Honduras">🇭🇳 +504</option><option value="+505" data-pais="Nicaragua">🇳🇮 +505</option><option value="+58" data-pais="Venezuela">🇻🇪 +58</option><option value="+1" data-pais="Estados Unidos">🇺🇸 +1</option><option value="+34" data-pais="España">🇪🇸 +34</option></select>
+      <input type="tel" id="f_tel" name="tel" placeholder="Tu WhatsApp" required autocomplete="tel-national">
+    </div>
+    <div class="radio-question">
+      <label class="q-label">¿Tenés computadora o PC para aplicar el proceso?</label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="si" required><span>Sí, tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="no"><span>No, no tengo computadora</span></label>
+      <label class="radio-opt"><input type="radio" name="computadora" value="puedo"><span>Puedo conseguir una</span></label>
+    </div>
+    <button type="submit" class="popup-submit">Listo, quiero mi lugar →</button>
+    <div class="popup-safe">100% gratis · Te llega el link al email</div>
+  </form>
+</div>
+</div>
+
+<style>
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.popup-overlay.open{display:flex;animation:popFade .3s ease}
+@keyframes popFade{from{opacity:0}to{opacity:1}}
+.popup-box{background:#f5f5f0;border-radius:16px;max-width:420px;width:100%;padding:0;position:relative;animation:popSlide .3s ease;color:#1a1a1a;overflow:hidden}
+@keyframes popSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#999;cursor:pointer;line-height:1;z-index:2}
+.popup-chat-header{display:flex;align-items:center;gap:10px;padding:16px 20px;background:#fff;border-bottom:1px solid #e5e5e0}
+.popup-avatar{width:36px;height:36px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.popup-name{font-size:14px;font-weight:600}
+.popup-typing{font-size:12px;color:#22c55e}
+.popup-bubble{background:#fff;border:1px solid #e5e5e0;border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;margin:16px 20px 8px;font-size:14px;line-height:1.5;max-width:85%;color:#333}
+.popup-form{display:flex;flex-direction:column;gap:10px;padding:8px 20px 20px}
+.popup-form input[type="text"],.popup-form input[type="email"],.popup-form input[type="tel"],.popup-form .phone-code{font-family:'Inter',sans-serif;font-size:14px;padding:12px 14px;border:1px solid #e5e5e0;border-radius:12px;outline:none;transition:border-color .2s;background:#fff;color:#1a1a1a;-webkit-appearance:none;width:100%}
+.popup-form input::placeholder{color:#bbb}
+.popup-form input:focus,.popup-form select:focus{border-color:#22c55e}
+.phone-row{display:flex;gap:8px}
+.phone-code{flex:0 0 105px!important;width:105px!important;padding:12px 8px!important;font-size:13px!important;color:#1a1a1a!important}
+.phone-row input[type="tel"]{flex:1}
+.radio-question{display:flex;flex-direction:column;gap:6px}
+.q-label{font-size:13px;font-weight:600;color:#555}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #e5e5e0;border-radius:12px;cursor:pointer;transition:all .2s;font-size:13px;color:#555}
+.radio-opt:hover{border-color:#22c55e}
+.radio-opt:has(input:checked){border-color:#22c55e;background:#f0fdf4}
+.radio-opt input{accent-color:#22c55e;width:16px;height:16px;flex-shrink:0}
+.popup-submit{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:24px;background:#22c55e;color:#fff;cursor:pointer;transition:transform .2s;width:100%;margin-top:4px}
+.popup-submit:hover{transform:scale(1.02)}
+.popup-safe{text-align:center;font-size:11px;color:#bbb}
+@media(max-width:480px){.popup-form{padding:8px 16px 16px}.popup-bubble{margin:12px 16px 8px}}
+</style>
+
+<script>
+document.getElementById('regForm').addEventListener('submit',function(e){
+  e.preventDefault();var c=document.getElementById('f_code');var p=c.options[c.selectedIndex].getAttribute('data-pais');var t=c.value+document.getElementById('f_tel').value;
+  var pc=document.querySelector('input[name="computadora"]:checked');var dest=(pc&&pc.value==='si')?'gracias-calificado':'gracias-no-calificado';
+  var qs=new URLSearchParams(window.location.search);qs.set('nombre_lead',document.getElementById('f_nombre').value);qs.set('email_lead',document.getElementById('f_email').value);qs.set('tel_lead',t);qs.set('pais_lead',p);
+  window.location.href=dest+'?'+qs.toString();
+});
+</script>
+<script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
+
+<!-- Exit intent popup (componente unificado) -->
+<link rel="stylesheet" href="/css/exit-popup.css">
+<script src="/js/exit-popup.js"
+  data-variant="v4"
+  data-headline="Esperá 👋"
+  data-sub="Te escribo en 2 segundos para que <strong>no te pierdas la clase del lunes</strong>. 8PM, gratis, sin compromiso."
+  data-cta="DALE, ME APUNTO"
+  data-decline="Salir igual"
+  data-icon="💬"
+  data-bg="#ffffff"
+  data-ink="#1a1a1a"
+  data-mute="#667781"
+  data-strong="#22c55e"
+  data-accent="#22c55e"
+  data-accent-ink="#fff"
+  data-accent-shadow="rgba(34,197,94,.35)"
+  data-font="'Inter', sans-serif"
+  data-radius="14px"
+  data-min-time="15"
+  data-min-scroll="25"></script>
+<script src="/js/youtube-tag.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* ============================================================
+   Exit Intent Popup — componente unificado, theme-able
+   El motor (triggers, mobile, accesibilidad, tracking) es el mismo
+   en todas las variantes. El look es 100% nativo a cada landing
+   gracias a las CSS custom properties que el JS inyecta inline
+   desde los data-* del <script> tag.
+
+   Variables (todas overridable inline desde el data-* del script):
+     --ap-bg          background del modal       (default: #fff)
+     --ap-ink         color del texto principal  (default: #1a1a1a)
+     --ap-mute        color del subtexto         (default: #555)
+     --ap-strong      color de los <strong>      (default: var(--ap-ink))
+     --ap-accent      background del CTA         (default: #7c3aed)
+     --ap-accent-ink  texto del CTA              (default: #fff)
+     --ap-accent-shadow rgba para el hover       (default: rgba(124,58,237,.32))
+     --ap-radius      border-radius del modal    (default: 18px)
+     --ap-font        font-family                (default: heredada del body)
+     --ap-decline     color del decline link     (default: #999)
+     --ap-backdrop    overlay color              (default: rgba(0,0,0,.78))
+     --ap-border      border opcional del modal  (default: none)
+   ============================================================ */
+
+#apExitPopup {
+  position: fixed;
+  inset: 0;
+  background: var(--ap-backdrop, rgba(0, 0, 0, 0.78));
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: var(--ap-font, inherit);
+  -webkit-font-smoothing: antialiased;
+  animation: apExitFade 0.25s ease-out;
+}
+
+#apExitPopup.ap-show { display: flex; }
+
+#apExitPopup .ap-exit-box {
+  background: var(--ap-bg, #fff);
+  color: var(--ap-ink, #1a1a1a);
+  border-radius: var(--ap-radius, 18px);
+  border: var(--ap-border, none);
+  max-width: 460px;
+  width: 100%;
+  padding: 36px 28px 26px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: apExitScale 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#apExitPopup .ap-exit-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ap-mute, #999);
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  opacity: 0.7;
+}
+#apExitPopup .ap-exit-close:hover  { background: rgba(0,0,0,.06); opacity: 1; }
+#apExitPopup .ap-exit-close:focus  { outline: 2px solid var(--ap-accent, #7c3aed); outline-offset: 2px; }
+
+#apExitPopup .ap-exit-icon {
+  font-size: 44px;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+#apExitPopup .ap-exit-headline {
+  font-family: var(--ap-headline-font, inherit);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.18;
+  margin: 0 0 14px;
+  color: var(--ap-ink, #1a1a1a);
+}
+
+#apExitPopup .ap-exit-sub {
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ap-mute, #555);
+  margin: 0 0 24px;
+}
+#apExitPopup .ap-exit-sub strong {
+  color: var(--ap-strong, var(--ap-ink, #1a1a1a));
+  font-weight: 700;
+}
+
+#apExitPopup .ap-exit-cta {
+  background: var(--ap-accent, #7c3aed);
+  color: var(--ap-accent-ink, #fff);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 18px 24px;
+  border: none;
+  border-radius: var(--ap-cta-radius, 12px);
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  letter-spacing: -0.2px;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  text-transform: var(--ap-cta-transform, none);
+}
+#apExitPopup .ap-exit-cta:hover  { transform: translateY(-1px); filter: brightness(1.07); box-shadow: 0 12px 28px var(--ap-accent-shadow, rgba(0,0,0,0.25)); }
+#apExitPopup .ap-exit-cta:active { transform: translateY(0); }
+#apExitPopup .ap-exit-cta:focus  { outline: 2px solid var(--ap-ink, #1a1a1a); outline-offset: 2px; }
+
+#apExitPopup .ap-exit-decline {
+  background: none;
+  border: none;
+  color: var(--ap-decline, #999);
+  font-family: inherit;
+  font-size: 13px;
+  margin-top: 14px;
+  cursor: pointer;
+  padding: 8px 16px;
+  text-decoration: underline;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.8;
+}
+#apExitPopup .ap-exit-decline:hover { opacity: 1; }
+
+@keyframes apExitFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes apExitScale {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Mobile (≤480px): bottom sheet */
+@media (max-width: 480px) {
+  #apExitPopup { padding: 0; align-items: flex-end; }
+  #apExitPopup .ap-exit-box {
+    border-radius: 22px 22px 0 0;
+    max-width: 100%;
+    padding: 32px 22px 26px;
+    animation: apExitSlideUp 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #apExitPopup .ap-exit-headline { font-size: 23px; }
+  #apExitPopup .ap-exit-sub { font-size: 14.5px; }
+  #apExitPopup .ap-exit-cta { padding: 17px 20px; font-size: 15px; }
+}
+
+@keyframes apExitSlideUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #apExitPopup,
+  #apExitPopup .ap-exit-box {
+    animation: none;
+  }
+}
