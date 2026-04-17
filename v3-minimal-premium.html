@@ -289,6 +289,11 @@ document.getElementById('regForm').addEventListener('submit',function(e){
   e.preventDefault();
   var nombre=document.getElementById('f_nombre').value;
   var email=document.getElementById('f_email').value;
+  var evId=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  var vCk=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);
+  var variant=vCk?vCk[1]:'unknown';
+  if(typeof fbq==='function')fbq('track','CompleteRegistration',{},{eventID:evId});
+  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'conversion',variant:variant,eventId:evId}),keepalive:true}).catch(function(){});
   var msg='Hola, soy '+nombre+', mi mail es '+email+' y quiero el link para sumarme a las clases gratis para vender por Instagram';
   window.location.href='https://wa.me/5493518166158?text='+encodeURIComponent(msg);
 });
