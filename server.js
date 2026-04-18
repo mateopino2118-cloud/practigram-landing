@@ -31,6 +31,7 @@ const ranking    = require('./api/ranking');
 const pivot      = require('./api/pivot');
 const tendencias = require('./api/tendencias');
 const dimensions = require('./api/dimensions');
+const reset      = require('./api/reset');
 
 // ── Entry-point routes (replaces vercel.json rewrites) ───────────────────────
 // GET /  → Thompson Sampling redirect to a variant
@@ -55,6 +56,7 @@ app.all('/api/ranking',    ranking);
 app.all('/api/pivot',      pivot);
 app.all('/api/tendencias', tendencias);
 app.all('/api/dimensions', dimensions);
+app.all('/api/reset',      reset);
 
 // ── Static files ──────────────────────────────────────────────────────────────
 // extensions:['html'] replicates Vercel's cleanUrls:true
