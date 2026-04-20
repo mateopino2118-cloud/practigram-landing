@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clases Gratis — Vender por Instagram</title>
+<meta name="description" content="Clases gratis todos los jueves para aprender a vender por Instagram fácil y rápido." />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:   #e0006e;
+  --blue:   #1a7cff;
+  --dark:   #111111;
+  --border: #e0e0e0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Fondo blobs ── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+.blob-pink {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, #ff80cc 0%, #ff1493 55%, transparent 100%);
+  top: -200px; right: -140px;
+  opacity: 0.38;
+}
+.blob-orange {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #ffcc66 0%, #ff8833 60%, transparent 100%);
+  bottom: 60px; left: -100px;
+  opacity: 0.30;
+}
+.blob-green {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #aaff99 0%, #33cc55 60%, transparent 100%);
+  top: 55%; right: -60px;
+  opacity: 0.18;
+}
+
+/* ── Layout ── */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 18px 18px 32px;
+  text-align: center;
+}
+
+/* ── Headline ── */
+.headline {
+  font-size: clamp(16px, 4.8vw, 20px);
+  font-weight: 900;
+  line-height: 1.38;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.hl { color: var(--pink); }
+
+/* ── REGISTRATE ── */
+.registrate {
+  font-size: clamp(13px, 3.8vw, 16px);
+  font-weight: 900;
+  color: var(--dark);
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+/* ── Form card ── */
+.form-wrap {
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  margin-bottom: 14px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 16px;
+  color: var(--dark);
+  background: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s;
+}
+.form input:focus  { border-color: var(--pink); }
+.form input.error  { border-color: #ff3333; }
+.form input::placeholder { color: #aaa; }
+
+.error-msg {
+  font-size: 12px;
+  color: #ff3333;
+  text-align: left;
+  padding-left: 2px;
+  min-height: 14px;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px 12px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, transform 0.1s, opacity 0.2s;
+}
+.btn:hover   { background: #0e6de0; }
+.btn:active  { transform: scale(0.98); }
+.btn:disabled { opacity: 0.60; cursor: not-allowed; }
+
+/* ── Sección certificado ── */
+.cert-intro {
+  font-size: clamp(13px, 3.8vw, 15px);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.cert-intro .senado  { color: var(--pink); }
+.cert-intro .interes { color: var(--pink); }
+
+.cert-img-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+}
+.cert-img-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 28vh;
+  object-fit: cover;
+  object-position: top;
+}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','880791860253272');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=880791860253272&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+  <!-- Fondo con blobs -->
+  <div class="bg">
+    <div class="blob blob-pink"></div>
+    <div class="blob blob-orange"></div>
+    <div class="blob blob-green"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- Headline -->
+    <h1 class="headline">
+      Estás a un paso de <span class="hl">ACCEDER</span> a las<br>
+      <span class="hl">CLASES GRATIS</span> para <span class="hl">VENDER</span> por<br>
+      <span class="hl">INSTAGRAM FÁCIL y RÁPIDO</span><br>
+      todos los <span class="hl">JUEVES</span> a las 20hs
+    </h1>
+
+    <!-- CTA -->
+    <p class="registrate">⬇&nbsp; REGISTRATE &nbsp;⬇</p>
+
+    <!-- Formulario -->
+    <div class="form-wrap">
+      <form class="form" id="regForm" novalidate>
+        <input
+          type="text"
+          id="f_nombre"
+          placeholder="* Nombre o apodo"
+          autocomplete="name"
+          inputmode="text"
+          required
+        />
+        <input
+          type="email"
+          id="f_email"
+          placeholder="* Un mail que utilices"
+          autocomplete="email"
+          inputmode="email"
+          required
+        />
+        <p class="error-msg" id="errorMsg"></p>
+        <button type="submit" class="btn" id="submitBtn">
+          IR AL GRUPO DE WHATSAPP
+        </button>
+      </form>
+    </div>
+
+    <!-- Reconocimiento -->
+    <p class="cert-intro">
+      Las clases que el <span class="senado">Senado de Catamarca</span><br>
+      reconoció de <span class="interes">interés educativo</span>
+    </p>
+
+    <div class="cert-img-wrap">
+      <img
+        src="/static/img/reconocimiento.jpg"
+        alt="Reconocimiento del Senado de Catamarca — interés educativo"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+
+<script>
+document.getElementById('regForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var nombreEl=document.getElementById('f_nombre');
+  var emailEl=document.getElementById('f_email');
+  var errorEl=document.getElementById('errorMsg');
+  var btnEl=document.getElementById('submitBtn');
+
+  var nombre=nombreEl.value.trim();
+  var email=emailEl.value.trim().toLowerCase();
+
+  nombreEl.classList.remove('error');
+  emailEl.classList.remove('error');
+  errorEl.textContent='';
+
+  if(!nombre){
+    nombreEl.classList.add('error');
+    errorEl.textContent='Ingresá tu nombre y apellido';
+    nombreEl.focus();
+    return;
+  }
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    emailEl.classList.add('error');
+    errorEl.textContent='Ingresá un email válido';
+    emailEl.focus();
+    return;
+  }
+
+  btnEl.disabled=true;
+  var evId=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  var vCk=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);
+  var variant=vCk?vCk[1]:'unknown';
+  if(typeof fbq==='function')fbq('track','CompleteRegistration',{},{eventID:evId});
+  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'conversion',variant:variant,eventId:evId}),keepalive:true}).catch(function(){});
+  var msg='Hola, soy '+nombre+', mi mail es '+email+' y quiero el link para sumarme a las clases gratis para vender por Instagram';
+  window.location.href='https://wa.me/5493518166158?text='+encodeURIComponent(msg);
+});
+</script>
+<script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(vc)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
+
+<link rel="stylesheet" href="/css/exit-popup.css">
+<script src="/js/exit-popup.js"
+  data-variant="vc"
+  data-headline="Antes de irte…"
+  data-sub="Miles de emprendedores ya están vendiendo por Instagram con las clases gratuitas de Joaco. El próximo jueves a las 20hs podés ser uno más."
+  data-cta="QUIERO MI LUGAR"
+  data-decline="No me interesa"
+  data-icon="📲"
+  data-bg="#fff"
+  data-ink="#111111"
+  data-mute="#666"
+  data-strong="#e0006e"
+  data-accent="#1a7cff"
+  data-accent-ink="#fff"
+  data-accent-shadow="rgba(26,124,255,.32)"
+  data-font="Arial, Helvetica, sans-serif"
+  data-radius="9px"
+  data-cta-radius="9px"
+  data-min-time="15"
+  data-min-scroll="20"></script>
+<script src="/js/youtube-tag.js"></script>
+<script src="/js/einstein.js"></script>
+</body>
+</html>

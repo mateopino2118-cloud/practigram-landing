@@ -12,6 +12,7 @@ const ALL_VARIANTS = [
   { id: 'v7', file: 'v7-antes-despues',        name: 'Antes/Despues' },
   { id: 'v8', file: 'v8-quiz',                 name: 'Quiz Interactivo' },
   { id: 'v9', file: 'v9-vidriera',             name: 'Instagram Vidriera' },
+  { id: 'vc', file: 'vc-clase-oficial',        name: 'Clase Oficial' },
 ];
 
 const VALID_IDS  = ALL_VARIANTS.map(v => v.id);
