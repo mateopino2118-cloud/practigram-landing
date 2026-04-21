@@ -201,6 +201,10 @@ fbq('track','PageView');
 </style>
 
 <script>
+// Capturar fbclid del URL y persistir en sessionStorage
+var _fbclid=(new URLSearchParams(window.location.search).get('fbclid'))||sessionStorage.getItem('_fbclid')||'';
+if(_fbclid)sessionStorage.setItem('_fbclid',_fbclid);
+
 document.getElementById('regForm').addEventListener('submit',function(e){
   e.preventDefault();
   var nombre=document.getElementById('f_nombre').value;
@@ -209,12 +213,14 @@ document.getElementById('regForm').addEventListener('submit',function(e){
   var vCk=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);
   var variant=vCk?vCk[1]:'unknown';
   if(typeof fbq==='function')fbq('track','CompleteRegistration',{},{eventID:evId});
-  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'conversion',variant:variant,eventId:evId}),keepalive:true}).catch(function(){});
+  var payload={type:'conversion',variant:variant,eventId:evId};
+  if(_fbclid)payload.fbclid=_fbclid;
+  fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
   var msg='Hola, soy '+nombre+', mi mail es '+email+' y quiero el link para sumarme a las clases gratis para vender por Instagram';
   window.location.href='https://wa.me/5493518166158?text='+encodeURIComponent(msg);
 });
 </script>
-<script>(function(){var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"impression",variant:v}),keepalive:true})}})()</script>
+<script>(function(){var fbclid=(new URLSearchParams(window.location.search).get('fbclid'))||sessionStorage.getItem('_fbclid')||'';if(fbclid)sessionStorage.setItem('_fbclid',fbclid);var c=document.cookie.match(/(?:^|; )ab_variant=([^;]*)/);var v=c?c[1]:null;if(!v){var m=location.pathname.match(/\/(v\d+)-/);if(m)v=m[1]}if(v){if(!c)document.cookie="ab_variant="+v+";path=/;max-age=86400;SameSite=Lax";var body={type:"impression",variant:v};if(fbclid)body.fbclid=fbclid;fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true})}})()</script>
 
 <link rel="stylesheet" href="/css/exit-popup.css">
 <script src="/js/exit-popup.js"

@@ -13,12 +13,16 @@ const CAPI_EVENT_MAP = {
   conversion: 'CompleteRegistration',
 };
 
-function capiSend(eventName, req, eventId) {
+function capiSend(eventName, req, eventId, fbclid) {
   if (!CAPI_TOKEN) return;                    // token not set → skip silently
   const ip  = ((req.headers['x-forwarded-for'] || '') + '').split(',')[0].trim() || '';
   const ua  = (req.headers['user-agent'] || '').slice(0, 512);
   const fbp = parseCookie(req.headers && req.headers.cookie, '_fbp') || undefined;
-  const fbc = parseCookie(req.headers && req.headers.cookie, '_fbc') || undefined;
+  // fbc: si viene fbclid desde el body, construirlo manualmente (más preciso).
+  // Si no, caer al cookie _fbc que el pixel pudo haber seteado.
+  const fbc = fbclid
+    ? ('fb.1.' + Date.now() + '.' + fbclid)
+    : (parseCookie(req.headers && req.headers.cookie, '_fbc') || undefined);
   if (!eventId) eventId = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 
   const userData = {};
@@ -85,7 +89,7 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
 
-  const { type, variant, value, eventId } = req.body || {};
+  const { type, variant, value, eventId, fbclid } = req.body || {};
   if (!variant || !VALID_IDS.includes(variant)) return res.status(400).json({ error: 'invalid variant' });
   // Base types + bucketed variants for the mobile timing A/B test. Buckets:
   // control (50%), 500/1000/2000/3000 ms (12.5% c/u). Bucketing lets stats.js
@@ -124,7 +128,7 @@ module.exports = async (req, res) => {
 
   // Fire CAPI for PageView (impression) and Lead (conversion) — fire-and-forget
   const capiEvent = CAPI_EVENT_MAP[type];
-  if (capiEvent) capiSend(capiEvent, req, eventId || undefined);
+  if (capiEvent) capiSend(capiEvent, req, eventId || undefined, fbclid || undefined);
 
   return res.status(200).json({ ok: true });
 };
